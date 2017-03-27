@@ -161,6 +161,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.2)
   rspec-rails (~> 3.5)
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
