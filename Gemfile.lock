@@ -72,6 +72,7 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
+    pg (0.20.0)
     puma (3.8.2)
     rack (2.0.1)
     rack-cors (0.4.1)
@@ -157,6 +158,7 @@ DEPENDENCIES
   byebug
   coveralls
   listen (~> 3.0.5)
+  pg
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.2)

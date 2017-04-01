@@ -1,3 +1,4 @@
+bundler_args: --without production
 before_script: bundle exec rails db:create db:migrate
 cache: bundler
 language: ruby
