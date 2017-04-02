@@ -1,3 +1,4 @@
+bundler_args: --without production
 before_script: bundle exec rails db:create db:migrate
 cache: bundler
 language: ruby
@@ -7,4 +8,10 @@ sript:
   - bundle exec rspec
 sudo: false
 dist: xenial
+deploy:
+  provider: heroku
+  api_key:
+    secure: "d5573795-53f2-49f9-8180-ac98f4af24f0"
+  app:
+    homolog: cadernos-api
 
