@@ -8,9 +8,7 @@ class BooksController < ApplicationController
 #  end
 
   def show
-
-  render json: @book
-#    render json: @books
+    render json: @book
   end
 
   def set_both
