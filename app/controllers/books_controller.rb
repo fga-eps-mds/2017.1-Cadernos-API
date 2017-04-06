@@ -11,6 +11,14 @@ class BooksController < ApplicationController
     render json: @book
   end
 
+  def update
+    if @book.update(book_params)
+      render json: @book
+    else
+      render json: @book.errors, status: :unprocessable_entity
+    end
+  end
+
   def create
     @book = Book.new(book_params)
 
@@ -21,24 +29,16 @@ class BooksController < ApplicationController
     end
   end
 
-  def update
-    if @book.update(book_params)
-      render json: @book
-    else
-      render json: @book.errors, status: :unprocessable_entity
-    end
-  end
-
   def destroy
-    render json: @book.destroy
+    @book.destroy
   end
 
   private
-    def book_params
-      params.require(:book).permit(:title, :idNumber)
-    end
-
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    def book_params
+      params.require(:book).permit(:title)
     end
 end
