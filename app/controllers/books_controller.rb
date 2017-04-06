@@ -1,19 +1,23 @@
 class BooksController < ApplicationController
   skip_before_action :authenticate_request
   before_action :set_both, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:update, :destroy]
+
   def index
-     @books = Book.all
-  
-     render json: @books
-   end
+    @books = Book.all
+
+    render json: @books
+  end
 
   def show
+    @book = Book.find(params [:title])
 
-  render json: @book
+    render json: @book
   end
 
   def set_both
     @user = User.find(params[:id])
+
     @book = @user.books.find_by_title(params[:title])
   end
   
@@ -31,4 +35,16 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :idNumber)
   end
 
+  def update
+    @book.update(:id)
+  end
+
+  def destroy
+    @book.destroy
+  end
+
+  private
+    def set_book
+      @book = Book.find(params[:id])
+    end
 end
