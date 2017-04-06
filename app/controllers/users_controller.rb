@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_request
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :books]
 
 
   # GET /users
@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   end
 
   def books
-    @user = User.find(params[:id])
     @books = @user.books.all
     render json: @books
   end
