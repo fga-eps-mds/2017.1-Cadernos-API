@@ -17,6 +17,8 @@ class BooksController < ApplicationController
     else
       render json: @book.errors, status: :unprocessable_entity
     end
+
+    render json: @book
   end
 
   def create
