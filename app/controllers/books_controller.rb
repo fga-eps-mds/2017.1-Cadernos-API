@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 
     @book = @user.books.find_by_title(params[:title])
   end
-  
+
   def create
     @book = Book.new(book_params)
 
@@ -46,5 +46,10 @@ class BooksController < ApplicationController
   private
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    def set_both
+      @user = User.find(params[:id])
+      @book = @user.books.find_by_title(params[:title])
     end
 end
