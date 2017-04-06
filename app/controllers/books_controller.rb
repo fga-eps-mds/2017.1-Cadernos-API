@@ -22,11 +22,15 @@ class BooksController < ApplicationController
   end
 
   def update
-    @book.update(:id)
+    if @book.update(book_params)
+      render json: @book
+    else
+      render json: @book.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    @book.destroy
+    render json: @book.destroy
   end
 
   private
