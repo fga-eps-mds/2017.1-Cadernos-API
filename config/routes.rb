@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'users/:id/books' => 'users#books'
 
-  get 'users/:id/books/:title' => 'books#show'
+  get 'users/:id/books/:id_book' => 'books#show'
 
   resources :books
 

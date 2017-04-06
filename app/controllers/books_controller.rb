@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params [:title])
+    #@book = Book.find(params [:title])
 
     render json: @book
   end
@@ -18,7 +18,7 @@ class BooksController < ApplicationController
   def set_both
     @user = User.find(params[:id])
 
-    @book = @user.books.find_by_title(params[:title])
+    @book = @user.books.find(params[:id_book])
   end
 
   def create
@@ -50,6 +50,6 @@ class BooksController < ApplicationController
 
     def set_both
       @user = User.find(params[:id])
-      @book = @user.books.find_by_title(params[:title])
+      @book = @user.books.find(params[:id_book])
     end
 end
