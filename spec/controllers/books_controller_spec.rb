@@ -5,6 +5,7 @@ RSpec.describe BooksController, type: :controller do
   before(:all) do
     @user = User.create! :name => "ValidName",
                          :email => "validEmail@mail.com",
+                         :email_confirmation => "validEmail@mail.com",
                          :password => "validpassword",
                          :password_confirmation => "validpassword"
   end
