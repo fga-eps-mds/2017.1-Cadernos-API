@@ -21,11 +21,18 @@ ActiveRecord::Schema.define(version: 20170407180520) do
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
-    t.integer  "id_category"
+    t.integer  "category_id"
     t.string   "title"
     t.text     "content"
-    t.integer  "id_user"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "files_list"
@@ -39,12 +46,4 @@ ActiveRecord::Schema.define(version: 20170407180520) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
 end

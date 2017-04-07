@@ -9,3 +9,6 @@ User.create(name: 'abc', email: 'emailTest', email_confirmation: 'emailTest', pa
 User.create(name: 'dfg', email: 'emailTest1', email_confirmation: 'emailTest1', password_digest: '1234567')
 
 Book.create(title: 'testLivro', user_id: 1)
+
+Category.create(name: 'categoryTest', description: 'descriptionTest')
+Task.create(category_id: 1, title: 'taskTitle', content: 'testContent', user_id: 1)
