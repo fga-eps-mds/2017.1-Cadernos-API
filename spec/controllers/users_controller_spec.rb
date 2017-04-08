@@ -26,6 +26,7 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_attributes) {
     {:name => "ValidName",
     :email => "validEmail@mail.com",
+    :email_confirmation => "validEmail@mail.com",
     :password => "validpassword",
     :password_confirmation => "validpassword"}
   }
@@ -33,6 +34,7 @@ RSpec.describe UsersController, type: :controller do
   let(:invalid_attributes) {
     {:name => "ValidName",
     :email => "invalid email with spaces @ mail .com",
+    :email_confirmation => "invalid email with spaces @ mail .com",
     :password => "validpassword",
     :password_confirmation => "validpassword"}
   }
@@ -54,21 +56,6 @@ RSpec.describe UsersController, type: :controller do
     it "assigns the requested user as @user" do
       user = User.create! valid_attributes
       get :show, params: {id: user.to_param}, session: valid_session
-      expect(assigns(:user)).to eq(user)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new user as @user" do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:user)).to be_a_new(User)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
-      get :edit, params: {id: user.to_param}, session: valid_session
       expect(assigns(:user)).to eq(user)
     end
   end
@@ -106,6 +93,7 @@ RSpec.describe UsersController, type: :controller do
       let(:new_attributes) {
         {:name => "newValid Name",
         :email => "newValidEmail@mail.com",
+        :email_confirmation => "newValidEmail@mail.com",
         :password => "validpassword",
         :password_confirmation => "validpassword"}
       }
