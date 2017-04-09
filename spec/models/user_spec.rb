@@ -3,12 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   before(:each) do
-    @user = User.new
-    @user.name = "Valid Name"
-    @user.email = "email@email.com"
-    @user.email_confirmation = "email@email.com"
-    @user.password = "validPassword"
-    @user.password_confirmation = "validPassword"
+    @user = FactoryGirl.create :user
   end
 
   it "Saves a user with valid attributes" do
