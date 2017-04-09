@@ -170,7 +170,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
-  coveralls
+  coveralls (~> 0.8.19)
   database_cleaner
   factory_girl_rails
   jwt
@@ -182,7 +182,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails (~> 3.5)
   simple_command
-  simplecov
+  simplecov (~> 0.12.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
