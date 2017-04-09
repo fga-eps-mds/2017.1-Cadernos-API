@@ -47,4 +47,5 @@ RSpec.describe Book, type: :model do
     end
 
   end
+
 end
