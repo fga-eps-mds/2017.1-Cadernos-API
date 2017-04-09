@@ -105,8 +105,8 @@ RSpec.describe User, type: :model do
     it "Won't save a user without a password" do
       @newUser = User.new
       @newUser.name = @user.name
-      @newUser.email = @user.email
-      @newUser.email_confirmation = @user.email_confirmation
+      @newUser.email = "sometest@email.com"
+      @newUser.email_confirmation = "sometest@email.com"
       @newUser.password = ""
       @newUser.password_confirmation = ""
       expect(@newUser.save).not_to be(true)
@@ -114,6 +114,7 @@ RSpec.describe User, type: :model do
 
       @newUser.password = "validPassword"
       @newUser.password_confirmation = "validPassword"
+      @newUser.valid?
       expect(@newUser.save).to be(true)
     end
 
