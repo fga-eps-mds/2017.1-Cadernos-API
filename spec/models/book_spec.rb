@@ -3,10 +3,7 @@ require 'rails_helper'
 RSpec.describe Book, type: :model do
 
   before(:each) do
-   		@user = User.create :name => "usuario",
-                          :password => "validpassword",
-                          :email => "valid@email.com",
-                          :email_confirmation => "valid@email.com"
+   		@user = FactoryGirl.create :user
 
       @book = Book.new
 

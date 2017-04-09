@@ -46,7 +46,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #index" do
     it "assigns all users as @users" do
-      user = User.create! valid_attributes
+      user = FactoryGirl.create :user
       get :index, params: {}, session: valid_session
       expect(assigns(:users)).to eq([user])
     end
@@ -54,7 +54,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
+      user = FactoryGirl.create :user
       get :show, params: {id: user.to_param}, session: valid_session
       expect(assigns(:user)).to eq(user)
     end
@@ -99,20 +99,20 @@ RSpec.describe UsersController, type: :controller do
       }
 
       it "updates the requested user" do
-        user = User.create! valid_attributes
+        user = FactoryGirl.create :user
         put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
         user.reload
         expect(user.name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested user as @user" do
-        user = User.create! valid_attributes
+        user = FactoryGirl.create :user
         put :update, params: {id: user.to_param, user: valid_attributes}, session: valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it "return the user once it is created" do
-        user = User.create! valid_attributes
+        user = FactoryGirl.create :user
         put :update, params: {id: user.to_param, user: valid_attributes}, session: valid_session
         expect(response).to have_http_status(200)
       end
@@ -120,7 +120,7 @@ RSpec.describe UsersController, type: :controller do
 
     context "with invalid params" do
       it "assigns the user as @user" do
-        user = User.create! valid_attributes
+        user = FactoryGirl.create :user
         put :update, params: {id: user.to_param, user: invalid_attributes}, session: valid_session
         expect(assigns(:user)).to eq(user)
       end
@@ -129,16 +129,10 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested user" do
-      user = User.create! valid_attributes
+      user = FactoryGirl.create :user
       expect {
-        delete :destroy, params: {id: user.to_param}, session: valid_session
+        delete :destroy, params: {id: user.id}, session: valid_session
       }.to change(User, :count).by(-1)
-    end
-
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      delete :destroy, params: {id: user.to_param}, session: valid_session
-      expect(response).to have_http_status(200)
     end
   end
 
