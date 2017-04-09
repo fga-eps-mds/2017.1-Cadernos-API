@@ -14,6 +14,10 @@ deploy:
     secure: "d5573795-53f2-49f9-8180-ac98f4af24f0"
   app:
     homolog: cadernos-api
+  run:
+    - "rake db:drop"
+    - "rake db:create"
+    - "rake db:migrate"
 addons:
     code_climate:
         repo_token: c277e3c368b533d9674e2e08ddc7db4e155899532abf9e11fdd0531e9d848be1

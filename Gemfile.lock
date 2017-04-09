@@ -56,6 +56,9 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.8.1)
+    jbuilder (2.6.3)
+      activesupport (>= 3.0.0, < 5.2)
+      multi_json (~> 1.2)
     json (2.0.3)
     jwt (1.5.6)
     listen (3.0.8)
@@ -71,6 +74,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    multi_json (1.12.1)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -165,6 +169,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
   coveralls
+  jbuilder (~> 2.5)
   jwt
   listen (~> 3.0.5)
   pg
