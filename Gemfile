@@ -21,8 +21,6 @@ gem 'jwt'
 
 gem 'simple_command'
 
-gem 'rails-controller-testing'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -33,11 +31,13 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
+  gem "factory_girl_rails"
   gem 'simplecov'
   gem 'coveralls', require: false
   gem 'rails-controller-testing'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  gem 'database_cleaner'
 end
 
 group :development do
