@@ -54,20 +54,7 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new category as @category" do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:category)).to be_a_new(Category)
-    end
-  end
 
-  describe "GET #edit" do
-    it "assigns the requested category as @category" do
-      category = Category.create! valid_attributes
-      get :edit, params: {id: category.to_param}, session: valid_session
-      expect(assigns(:category)).to eq(category)
-    end
-  end
 
   describe "POST #create" do
     context "with valid params" do
@@ -95,10 +82,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(assigns(:category)).to be_a_new(Category)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, params: {category: invalid_attributes}, session: valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 
@@ -136,11 +119,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(assigns(:category)).to eq(category)
       end
 
-      it "re-renders the 'edit' template" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: invalid_attributes}, session: valid_session
-        expect(response).to render_template("edit")
-      end
     end
   end
 
