@@ -21,7 +21,6 @@ gem 'jwt'
 
 gem 'simple_command'
 
-gem 'rails-controller-testing'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
