@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   skip_before_action :authenticate_request
-  before_action :set_book, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:update, :destroy]
+  before_action :set_both, only: [:show]
 
   def index
     @books = Book.all
@@ -38,6 +39,10 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
     end
 
+    def set_both
+      @user = User.find(params[:id])
+      @book = @user.books.find(params[:id_book])
+    end
     def book_params
       params.require(:book).permit(:title)
     end
