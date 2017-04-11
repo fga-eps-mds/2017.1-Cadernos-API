@@ -5,10 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create(name: 'abc', email: 'emailTest', email_confirmation: 'emailTest', password_digest: '123456')
-User.create(name: 'dfg', email: 'emailTest1', email_confirmation: 'emailTest1', password_digest: '1234567')
+User.create(name: 'lucas', email: 'emailTest@email.com', email_confirmation: 'emailTest@email.com', password: '123456')
+User.create(name: 'teste', email: 'emailTest1@email.com', email_confirmation: 'emailTest1@email.com', password: '1234567')
 
 Book.create(title: 'testLivro', user_id: 1)
-
-Category.create(name: 'categoryTest', description: 'descriptionTest')
-Task.create(category_id: 1, title: 'taskTitle', content: 'testContent', user_id: 1)
+Book.create(title: 'testLivro2', user_id: 1)
+Book.create(title: 'testLivro3', user_id: 2)
+Task.create(title: 'taskTitle', content: 'testContent', book_id: 1)
+Task.create(title: 'taskTitle', content: 'testContent', book_id: 1)

@@ -4,9 +4,10 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.integer :category_id
       t.string :title
       t.text :content
-      t.integer :user_id
+      t.integer :book_id
 
       t.timestamps
     end
+    add_index :tasks, [:book_id, :created_at]
   end
 end

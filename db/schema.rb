@@ -32,10 +32,11 @@ ActiveRecord::Schema.define(version: 20170407180520) do
     t.integer  "category_id"
     t.string   "title"
     t.text     "content"
-    t.integer  "user_id"
+    t.integer  "book_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "files_list"
+    t.index ["book_id", "created_at"], name: "index_tasks_on_book_id_and_created_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,4 +47,5 @@ ActiveRecord::Schema.define(version: 20170407180520) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
+
 end
