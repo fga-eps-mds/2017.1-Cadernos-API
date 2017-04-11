@@ -27,9 +27,23 @@ RSpec.describe BooksController, type: :controller do
     end
   end
 
+  # describe  "DELETE #destroy"do
+  #   it "destroys the requested @books"do
+  #   puts "*********************************************"
+  #   puts Book.count
+  #   expect {
+  #     delete :destroy, params: {id: book.id}
+  #   }.to change(Book, :count).by(-1)
+  #
+  #   end
+  # end
+
   describe "DELETE #destroy" do
     it "destroys the requested @books" do
-      delete :destroy, params: {id: book.id}
+      expect(book.save).to be(true)
+      expect {
+        delete :destroy, params: {id: book.id}
+      }.to change(Book, :count).by(-1)
       expect(Book.find_by_id(book.id)).to be(nil)
     end
   end
