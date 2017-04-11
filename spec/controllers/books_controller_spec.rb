@@ -26,4 +26,14 @@ RSpec.describe BooksController, type: :controller do
       expect(assigns(:book)).to eq(book)
     end
   end
+
+  describe "DELETE #destroy" do
+    it "destroys the requested @books" do
+      delete :destroy, params: {id: book.id}
+      expect(Book.find_by_id(book.id)).to be(nil)
+    end
+  end
+
+
+
 end
