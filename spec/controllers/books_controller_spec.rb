@@ -10,6 +10,13 @@ RSpec.describe BooksController, type: :controller do
     create :book, title: 'first', user: user
   }
 
+  let(:valid_attributes) {
+    {
+      :title => "ValidTitle",
+      :user => user
+    }
+  }
+
   let(:valid_session) { {} }
 
   describe "GET #index" do
@@ -22,9 +29,9 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe "GET #show" do
-    it "assings book as @book" do
+    it "assigns book as @book" do
       expect(book.save).to be(true)
-      get :show, :params => {id: book.id}
+      get :show, :params => {id_book: book.id, id: user.id}
       expect(assigns(:book)).to eq(book)
     end
   end
@@ -54,9 +61,9 @@ RSpec.describe BooksController, type: :controller do
         end
       end
 
-      end
+    end
 
-      end
+  end
 
 
   describe "DELETE #destroy" do
@@ -66,6 +73,20 @@ RSpec.describe BooksController, type: :controller do
         delete :destroy, params: {id: book.id}
       }.to change(Book, :count).by(-1)
       expect(Book.find_by_id(book.id)).to be(nil)
+    end
+  end
+
+  describe "POST #create" do
+    it "creates a valid book" do
+      expect {
+        post :create, params: {book: {title: "NewValidTitle", user_id: user.id}}, session: valid_session
+      }.to change(Book, :count).by(1)
+    end
+
+    it "won't create a book with invalid attributes" do
+      expect {
+        post :create, params: {book: {title: "nope", user_id: user.id}}, session: valid_session
+      }.to change(Book, :count).by(0)
     end
   end
 end
