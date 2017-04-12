@@ -1,18 +1,31 @@
 require 'rails_helper'
 
+
 RSpec.describe TasksController, type: :controller do
 
+  before(:all) do
+    @user = User.create! :name => "ValidName",
+                         :email => "validEmail@mail.com",
+                         :email_confirmation => "validEmail@mail.com",
+                         :password => "validpassword",
+                         :password_confirmation => "validpassword"
+  end
+  before(:all) do
+    @book = Book.create! :title => "ValidTitle",
+                         :user_id => 1
+  end
 
-  let(:valid_attributes){
-    :title => "ValidTitle",
-    :book_id => 1
+
+
+  let(:valid_attributes){{
+    :title => "ValidTitle"}
   }
 
-  let(:valid_session){}
+  let(:valid_session){{}}
 
    describe "GET #index" do
      it "assings @tasks" do
-       @task.save! valid_attributes
+       task = Task.create! valid_attributes
        get :index, params: {}, session: valid_session
        expect(assigns(:task)).to eq([@task])
      end
@@ -44,5 +57,6 @@ RSpec.describe TasksController, type: :controller do
          post :create, params: {task: valid_attributes}, session: valid_session
          expect(response).to have_http_status(201)
        end
+     end
    end
-end
+ end
