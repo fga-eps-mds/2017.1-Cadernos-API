@@ -9,20 +9,20 @@ RSpec.describe BooksController, type: :controller do
                          :password => "validpassword",
                          :password_confirmation => "validpassword"
   end
-  
+
   before(:each) do
     @book = Book.new :title => "first", :user => @user
   end
-  
+
   describe "GET #index" do
     it "assigns all books as @books" do
       expect(@book.save).to be(true)
-      
+
       get :index
       expect(assigns(:books)).to eq([@book])
     end
   end
-  
+
   describe "GET #show" do
     it "assings book as @book" do
       expect(@book.save).to be(true)
