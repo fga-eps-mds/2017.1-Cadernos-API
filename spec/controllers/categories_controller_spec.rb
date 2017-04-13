@@ -162,6 +162,8 @@ RSpec.describe CategoriesController, type: :controller do
 
     it "redirects to the categories list" do
       category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      request.headers["Authorization"] = @token.result
       delete :destroy, params: {id: category.to_param}, session: valid_session
       expect(response).to redirect_to(categories_url)
     end

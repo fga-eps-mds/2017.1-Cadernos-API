@@ -53,9 +53,9 @@ Spec.describe Category, type: :model do
       expect(@category.save).not_to be(true)
       expect(@category.errors[:description]).to include("is too short (minimum is 5 characters)")
 
-      @category.name = "a"*81
+      @category.description = "a"*201
       expect(@category.save).not_to be(true)
-      expect(@category.errors[:description]).to include("is too long (maximum is 80 characters)")
+      expect(@category.errors[:description]).to include("is too long (maximum is 200 characters)")
 
       @category.description = "validDescription"
       expect(@category.save).to be(true)
