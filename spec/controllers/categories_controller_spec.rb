@@ -24,13 +24,13 @@ RSpec.describe CategoriesController, type: :controller do
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:name => "ValidName", 
+    {:name => "ValidName",
     :description => "validDescription"}
 }
 
   let(:invalid_attributes) {
-    {:name => "ValidName", 
-    :description => "validDescription"}
+    {:name => "xxx",
+    :description => "xxx"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -67,13 +67,13 @@ RSpec.describe CategoriesController, type: :controller do
     end#renato
   end
 
-  describe "GET #edit" do
-    it "assigns the requested category as @category" do
-      category = Category.create! valid_attributes
-      get :edit, params: {id: category.to_param}, session: valid_session
-      expect(assigns(:category)).to eq(category)
-    end
-  end
+  #describe "GET #edit" do
+  #  it "assigns the requested category as @category" do
+  #    category = Category.create! valid_attributes
+  #    get :edit, params: {id: category.to_param}, session: valid_session
+  #    expect(assigns(:category)).to eq(category)
+  #  end
+  #  end
 
   describe "POST #create" do
     context "with valid params" do
@@ -111,43 +111,45 @@ RSpec.describe CategoriesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        #skip("Add a hash of attributes valid for your model")
-        {name: 'anothervalidtest', description: 'anothervaliddescription'}
+        {:name => "newValid Name",
+         :description => "newValidDescription"}
       }
 
-      it "updates the requested category" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: new_attributes}, session: valid_session
-        category.reload
-        skip("Add assertions for updated state")
-      end
+    it "updates the requested category" do
+      category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      request.headers["Authorization"] = @token.result
+      put :update, params: {id: category.to_param, category: new_attributes}, session: valid_session
+      category.reload
+      expect(category.name).to eq(new_attributes[:name])
+    end
 
-      it "assigns the requested category as @category" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
-        expect(assigns(:category)).to eq(category)
-      end
+    it "assigns the requested category as @category" do
+      category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      request.headers["Authorization"] = @token.result
+      put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
+      expects(assigns(:category)).to eq(category)
+    end
 
-      it "redirects to the category" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(category)
-      end
+    it "return the category once it is created" do
+      category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      request.headers["Authorization"] = @token.result
+      put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
+      expect(response).to have_http_status(200)
     end
 
     context "with invalid params" do
       it "assigns the category as @category" do
         category = Category.create! valid_attributes
+        @token = AuthenticateCategory.call(category.name, category.description)
+        request.headers["Authorization"] = @token.result
         put :update, params: {id: category.to_param, category: invalid_attributes}, session: valid_session
         expect(assigns(:category)).to eq(category)
       end
-
-      it "re-renders the 'edit' template" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: invalid_attributes}, session: valid_session
-        expect(response).to render_template("edit")
-      end
     end
+
   end
 
   describe "DELETE #destroy" do
