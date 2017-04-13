@@ -24,12 +24,12 @@ RSpec.describe CategoriesController, type: :controller do
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:name => "ValidName", 
+    {:name => "ValidName",
     :description => "validDescription"}
 }
 
   let(:invalid_attributes) {
-    {:name => "ValidName", 
+    {:name => "ValidName",
     :description => "validDescription"}
   }
 
@@ -67,13 +67,13 @@ RSpec.describe CategoriesController, type: :controller do
     end#renato
   end
 
-  describe "GET #edit" do
-    it "assigns the requested category as @category" do
-      category = Category.create! valid_attributes
-      get :edit, params: {id: category.to_param}, session: valid_session
-      expect(assigns(:category)).to eq(category)
-    end
-  end
+  #describe "GET #edit" do
+  #  it "assigns the requested category as @category" do
+  #    category = Category.create! valid_attributes
+  #    get :edit, params: {id: category.to_param}, session: valid_session
+  #    expect(assigns(:category)).to eq(category)
+  #  end
+  #  end
 
   describe "POST #create" do
     context "with valid params" do
