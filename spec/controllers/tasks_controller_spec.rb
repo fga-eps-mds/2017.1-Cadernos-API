@@ -70,4 +70,64 @@ RSpec.describe TasksController, type: :controller do
       }.to change(Task, :count).by(0)
     end
   end
+  describe "DELETE #destroy" do
+    it "destroys the requested @tasks" do
+      expect(task.save).to be(true)
+
+      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      request.headers["Authorization"] = @token.result
+
+      expect {
+        delete :destroy, params: {id: task.id}
+      }.to change(Task, :count).by(-1)
+      expect(Task.find_by_id(task.id)).to be(nil)
+    end
   end
+  describe "PUT #update" do
+    context "with valid params" do
+      let(:new_attributes) {
+        {:title => "newValid Title"}
+      }
+
+      let(:invalid_attributes) {
+        {:title => "ivT"}
+      }
+
+      it "updates the requested @task" do
+        task = FactoryGirl.create :task
+        @token = AuthenticateUser.call(book.user.email, book.user.password)
+        request.headers["Authorization"] = @token.result
+        put :update, params: {id: task.id, task: new_attributes}, session: valid_session
+        task.reload
+        expect(task.title).to eq(new_attributes[:title])
+      end
+
+      context "with invalid params" do
+        it "assigns the book as @book" do
+          book = FactoryGirl.create :book
+          @token = AuthenticateUser.call(book.user.email, book.user.password)
+          request.headers["Authorization"] = @token.result
+          put :update, params: {id: book.id, book: invalid_attributes}, session: valid_session
+          expect(assigns(:book)).to eq(book)
+        end
+      end
+
+    end
+
+  end
+
+
+  describe "DELETE #destroy" do
+    it "destroys the requested @books" do
+      expect(book.save).to be(true)
+
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+
+      expect {
+        delete :destroy, params: {id: book.id}
+      }.to change(Book, :count).by(-1)
+      expect(Book.find_by_id(book.id)).to be(nil)
+    end
+  end
+end
