@@ -25,7 +25,8 @@ RSpec.describe CategoriesController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     #skip("Add a hash of attributes valid for your model")
-    {name: 'validtest', description: 'validdescription'}
+    {:name =>"validtest",
+    :description => "validdescription"}
 
   }
 
@@ -41,9 +42,10 @@ RSpec.describe CategoriesController, type: :controller do
   describe "GET #index" do
     it "assigns all categories as @categories" do
       category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
       get :index, params: {}, session: valid_session
       expect(assigns(:categories)).to eq([category])
-    end
+    end#renato
   end
 
   describe "GET #show" do
@@ -56,9 +58,11 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new category as @category" do
+      category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
       get :new, params: {}, session: valid_session
       expect(assigns(:category)).to be_a_new(Category)
-    end
+    end#renato
   end
 
   describe "GET #edit" do
