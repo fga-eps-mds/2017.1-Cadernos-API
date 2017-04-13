@@ -3,65 +3,71 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
 
-  before(:all) do
-
-    @user = User.create! :name => "ValidName",
-                         :email => "validEmail@mail.com",
-                         :email_confirmation => "validEmail@mail.com",
-                         :password => "validpassword",
-                         :password_confirmation => "validpassword"
-
-  end
-    before(:all) do
-      @book = Book.create! :title => "ValidTitle",
-                         :user_id => 1
-    end
-  before(:each) do
-    @task = Task.new :title => "first", :book => @Book
-  end
-
-
-
-  let(:valid_attributes){{
-    :title => "ValidTitle"}
+  let(:user) {
+    create :user
   }
 
-  let(:valid_session){{}}
+  let(:book) {
+    create :book, title: 'first', user: user
+  }
 
-   describe "GET #index" do
-     it "assings @tasks" do
-       @task = Task.create! valid_attributes
-       get :index, params: {}, session: valid_session
-       expect(assigns(:task)).to eq([@task])
-     end
-   end
+  let(:task) {
+    create :task, title: 'first', book:book
+  }
 
-   describe "GET #show" do
-     it "assings the requested task as @task" do
-       @task = Task.create! valid_attributes
-       get :show, params: {id: task.to_param}
-       expect(assigns(:task)).to eq([@task])
-     end
-   end
+  let(:valid_attributes){
+    {
+    :title => "ValidTitle",
+    :book => book,
+    :user => user
+    }
+  }
 
-   describe "POST #create" do
-     context "with valid params" do
-       it "create a new Task" do
-         expect {
-           post :create, params: {task: valid_attributes, session: valid_session}
-         }.to chance(Task, :count).by(1)
-       end
+  let(:valid_session){ {} }
 
-       it "assigns a newly created task as @task" do
-         post :create, params: {task: valid_attributes}, session: valid_session
-         expect(assigns(:task)).to be_a(Task)
-         expect(assigns(:task)).to be_persisted
-       end
+  describe "GET #index" do
+    it "assigns all books as @books" do
+      expect(task.save).to be(true)
 
-       it "redirects to the created task" do
-         post :create, params: {task: valid_attributes}, session: valid_session
-         expect(response).to have_http_status(201)
-       end
-     end
-   end
- end
+      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      request.headers["Authorization"] = @token.result
+
+      get :index
+      expect(assigns(:task)).to eq([task])
+    end
+  end
+
+  describe "GET #show" do
+    it "assigns task as @task" do
+      expect(task.save).to be(true)
+
+      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      request.headers["Authorization"] = @token.result
+
+      get :show, :params => {id_task: task.id, id_book: book.id, id: user.id}
+      expect(assigns(:task)).to eq(task)
+    end
+  end
+
+  describe "POST #create" do
+    it "creates a valid task" do
+
+      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      request.headers["Authorization"] = @token.result
+
+      expect {
+        post :create, params: {task: {title: "NewValidTitle",id_book: book.id, user_id: user.id}}, session: valid_session
+      }.to change(Task, :count).by(1)
+    end
+
+    it "won't create a task with invalid attributes" do
+
+      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      request.headers["Authorization"] = @token.result
+
+      expect {
+        post :create, params: {task: {title: "nope",id_book: book.id, user_id: user.id}}, session: valid_session
+      }.to change(Task, :count).by(0)
+    end
+  end
+  end
