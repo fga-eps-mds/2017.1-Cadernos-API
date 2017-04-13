@@ -24,13 +24,13 @@ RSpec.describe CategoriesController, type: :controller do
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    #skip("Add a hash of attributes valid for your model")
-    {name: 'validtest', description: 'validdescription'}
-
-  }
+    {:name => "ValidName", 
+    :description => "validDescription"}
+}
 
   let(:invalid_attributes) {
-    {name: nil, description: nil}
+    {:name => "ValidName", 
+    :description => "validDescription"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -41,24 +41,30 @@ RSpec.describe CategoriesController, type: :controller do
   describe "GET #index" do
     it "assigns all categories as @categories" do
       category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
       get :index, params: {}, session: valid_session
       expect(assigns(:categories)).to eq([category])
-    end
+    end#renato
   end
 
   describe "GET #show" do
     it "assigns the requested category as @category" do
       category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      #verify if the user is loged
+      request.headers["Authorization"] = @token.result
       get :show, params: {id: category.to_param}, session: valid_session
       expect(assigns(:category)).to eq(category)
     end
   end
 
-  describe "GET #new" do
+  describe "POST #new" do
     it "assigns a new category as @category" do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:category)).to be_a_new(Category)
-    end
+      category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      post :create, params: {}, session: valid_session
+      expect(assigns(:category)).to be_a_new(category)
+    end#renato
   end
 
   describe "GET #edit" do
@@ -149,6 +155,8 @@ RSpec.describe CategoriesController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested category" do
       category = Category.create! valid_attributes
+      @token = AuthenticateCategory.call(category.name, category.description)
+      request.headers["Authorization"] = @token.result
       expect {
         delete :destroy, params: {id: category.to_param}, session: valid_session
       }.to change(Category, :count).by(-1)
