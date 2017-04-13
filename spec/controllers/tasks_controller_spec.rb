@@ -4,15 +4,20 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
 
   before(:all) do
+
     @user = User.create! :name => "ValidName",
                          :email => "validEmail@mail.com",
                          :email_confirmation => "validEmail@mail.com",
                          :password => "validpassword",
                          :password_confirmation => "validpassword"
+
   end
-  before(:all) do
-    @book = Book.create! :title => "ValidTitle",
+    before(:all) do
+      @book = Book.create! :title => "ValidTitle",
                          :user_id => 1
+    end
+  before(:each) do
+    @task = Task.new :title => "first", :book => @Book
   end
 
 
@@ -25,7 +30,7 @@ RSpec.describe TasksController, type: :controller do
 
    describe "GET #index" do
      it "assings @tasks" do
-       task = Task.create! valid_attributes
+       @task = Task.create! valid_attributes
        get :index, params: {}, session: valid_session
        expect(assigns(:task)).to eq([@task])
      end
