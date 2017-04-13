@@ -29,8 +29,8 @@ RSpec.describe CategoriesController, type: :controller do
 }
 
   let(:invalid_attributes) {
-    {:name => "ValidName",
-    :description => "validDescription"}
+    {:name => "xxx",
+    :description => "xxx"}
   }
 
   # This should return the minimal set of values that should be in the session
