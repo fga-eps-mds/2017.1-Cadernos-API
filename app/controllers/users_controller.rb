@@ -5,25 +5,16 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-
-    exclude_columns = ['password_digest']
-    columns = User.attribute_names - exclude_columns
-    @users = User.select(columns).all
-
-    render json: @users
+    @users = User.all
   end
 
   # GET /users/1
   def show
-    exclude_columns = ['password_digest']
-    columns = User.attribute_names - exclude_columns
-    @user = User.select(columns).find(params[:id])
-    render json: @user
+    @user
   end
 
   def books
     @books = @user.books.all
-    render json: @books
   end
 
   # POST /users
@@ -60,8 +51,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-
       params.require(:user).permit(:name, :email, :email_confirmation, :password, :password_confirmation)
-
     end
 end

@@ -31,6 +31,8 @@ RSpec.describe UsersController, type: :controller do
     :password_confirmation => "validpassword"}
   }
 
+
+
   let(:invalid_attributes) {
     {:name => "ValidName",
     :email => "invalid email with spaces @ mail .com",
@@ -39,6 +41,7 @@ RSpec.describe UsersController, type: :controller do
     :password_confirmation => "validpassword"}
   }
 
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
@@ -46,17 +49,21 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #index" do
     it "assigns all users as @users" do
+
       user = FactoryGirl.create :user
       @token = AuthenticateUser.call(user.email, user.password)
       request.headers["Authorization"] = @token.result
       get :index, params: {}, session: valid_session
+
       expect(assigns(:users)).to eq([user])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested user as @user" do
+
       user = FactoryGirl.create :user
+
       @token = AuthenticateUser.call(user.email, user.password)
       request.headers["Authorization"] = @token.result
       get :show, params: {id: user.to_param}, session: valid_session
@@ -103,7 +110,9 @@ RSpec.describe UsersController, type: :controller do
       }
 
       it "updates the requested user" do
+
         user = FactoryGirl.create :user
+
         @token = AuthenticateUser.call(user.email, user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
@@ -112,7 +121,9 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it "assigns the requested user as @user" do
+
         user = FactoryGirl.create :user
+
         @token = AuthenticateUser.call(user.email, user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: user.to_param, user: valid_attributes}, session: valid_session
@@ -120,7 +131,9 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it "return the user once it is created" do
+
         user = FactoryGirl.create :user
+
         @token = AuthenticateUser.call(user.email, user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: user.to_param, user: valid_attributes}, session: valid_session
@@ -130,7 +143,9 @@ RSpec.describe UsersController, type: :controller do
 
     context "with invalid params" do
       it "assigns the user as @user" do
+
         user = FactoryGirl.create :user
+
         @token = AuthenticateUser.call(user.email, user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: user.to_param, user: invalid_attributes}, session: valid_session
@@ -141,13 +156,25 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested user" do
+
       user = FactoryGirl.create :user
+
       @token = AuthenticateUser.call(user.email, user.password)
       request.headers["Authorization"] = @token.result
       expect {
         delete :destroy, params: {id: user.id}, session: valid_session
       }.to change(User, :count).by(-1)
     end
+
+
+    it "redirects to the users list" do
+      user = User.create! valid_attributes
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+      delete :destroy, params: {id: user.to_param}, session: valid_session
+      expect(response).to have_http_status(200)
+    end
+
   end
 
 end
