@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request
+
   before_action :set_book, only: [:update, :destroy]
   before_action :set_both, only: [:show]
 

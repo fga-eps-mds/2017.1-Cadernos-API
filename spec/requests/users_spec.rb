@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
   describe "GET /users" do
     it "works! (now write some real specs)" do
       get users_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(401) #due to no authentication, the response status to GET /users will be 401
     end
   end
 end
