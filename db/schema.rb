@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170403173015) do
 
   create_table "books", force: :cascade do |t|
@@ -39,5 +38,5 @@ ActiveRecord::Schema.define(version: 20170403173015) do
     t.datetime "updated_at",  null: false
   end
 
-  
+
 end
