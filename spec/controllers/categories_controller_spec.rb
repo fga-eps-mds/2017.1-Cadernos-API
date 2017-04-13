@@ -58,12 +58,12 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  describe "GET #new" do
+  describe "POST #new" do
     it "assigns a new category as @category" do
       category = Category.create! valid_attributes
       @token = AuthenticateCategory.call(category.name, category.description)
-      get :new, params: {}, session: valid_session
-      expect(assigns(:category)).to be_a_new(Category)
+      post :create, params: {}, session: valid_session
+      expect(assigns(:category)).to be_a_new(category)
     end#renato
   end
 
