@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 Spec.describe Category, type: :model do
   
   before(:each) do
@@ -59,10 +60,5 @@ Spec.describe Category, type: :model do
       @category.description = "validDescription"
       expect(@category.save).to be(true)
     end
-
   end
-    
-    
-    
-    
     
