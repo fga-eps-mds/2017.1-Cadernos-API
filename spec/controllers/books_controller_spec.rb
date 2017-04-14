@@ -44,9 +44,6 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe "PUT #update" do
-
-
-
     context "with valid params" do
 
       let(:new_attributes) {
@@ -79,7 +76,6 @@ RSpec.describe BooksController, type: :controller do
     end
 
   end
-
 
   describe "DELETE #destroy" do
     it "destroys the requested @books" do
