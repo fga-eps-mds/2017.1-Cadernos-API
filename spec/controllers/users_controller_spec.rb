@@ -149,7 +149,8 @@ RSpec.describe UsersController, type: :controller do
         @token = AuthenticateUser.call(user.email, user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: user.to_param, user: invalid_attributes}, session: valid_session
-        expect(assigns(:user)).to eq(user)
+        user.reload
+        expect(user.email).not_to eq(invalid_attributes[:email])
       end
     end
   end
