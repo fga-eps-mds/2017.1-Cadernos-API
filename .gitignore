@@ -22,4 +22,5 @@
 *.swp
 coverage
 vendor/bundle
+path
 

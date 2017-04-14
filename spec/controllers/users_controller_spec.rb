@@ -31,8 +31,6 @@ RSpec.describe UsersController, type: :controller do
     :password_confirmation => "validpassword"}
   }
 
-
-
   let(:invalid_attributes) {
     {:name => "ValidName",
     :email => "invalid email with spaces @ mail .com",
@@ -40,7 +38,6 @@ RSpec.describe UsersController, type: :controller do
     :password => "validpassword",
     :password_confirmation => "validpassword"}
   }
-
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
