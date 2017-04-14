@@ -3,16 +3,8 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
 
-  let(:user) {
-    create :user
-  }
-
-  let(:book) {
-    create :book, title: 'first', user: user
-  }
-
   let(:task) {
-    create :task, title: 'first', book:book
+    create :task
   }
 
   let(:valid_attributes){
@@ -26,14 +18,12 @@ RSpec.describe TasksController, type: :controller do
   let(:valid_session){ {} }
 
   describe "GET #index" do
-    it "assigns all books as @books" do
-      expect(task.save).to be(true)
-
-      @token = AuthenticateUser.call(book.user.email, book.user.password)
+    it "assigns all tasks as @tasks" do
+      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
       request.headers["Authorization"] = @token.result
 
-      get :index
-      expect(assigns(:task)).to eq([task])
+      get :index, params: {}, session: valid_session
+      expect(assigns(:tasks)).to eq([task])
     end
   end
 
