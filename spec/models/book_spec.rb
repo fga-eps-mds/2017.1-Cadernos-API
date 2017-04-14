@@ -8,14 +8,14 @@ RSpec.describe Book, type: :model do
 
 	describe "user_id validations" do
 		it "shouldnt save if theres no user" do
-			@book = Book.new
+			@book = Book.new :title => "ValidTitle"
 			expect(@book.save).to be(false)
-			expect(@book.errors[:user]).to include("can't be blank")
+			expect(@book.errors[:user]).to include("must exist")
 			@book.user = @user
 			expect(@book.save).to be(true)
 		end
 	end
-  
+
   before(:each) do
    		@user = FactoryGirl.create :user
 
