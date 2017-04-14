@@ -113,15 +113,13 @@ RSpec.describe TasksController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested @books" do
-      expect(book.save).to be(true)
-
-      @token = AuthenticateUser.call(user.email, user.password)
+      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
       request.headers["Authorization"] = @token.result
 
       expect {
-        delete :destroy, params: {id: book.id}
-      }.to change(Book, :count).by(-1)
-      expect(Book.find_by_id(book.id)).to be(nil)
+        delete :destroy, params: {id: task.id}
+      }.to change(Task, :count).by(-1)
+      expect(Task.find_by_id(task.id)).to be(nil)
     end
   end
 end

@@ -21,6 +21,8 @@ gem 'jwt'
 
 gem 'simple_command'
 
+#Upload file gem
+gem "paperclip"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

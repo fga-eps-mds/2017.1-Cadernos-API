@@ -24,3 +24,6 @@ coverage
 vendor/bundle
 path
 
+.vagrant/
+.DS_Store
+public/system/
