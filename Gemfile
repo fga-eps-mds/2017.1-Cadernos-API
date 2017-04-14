@@ -32,6 +32,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
   gem 'simplecov'
+  gem "factory_girl_rails"
   gem 'coveralls', require: false
   gem 'rails-controller-testing'
   # Use sqlite3 as the database for Active Record
