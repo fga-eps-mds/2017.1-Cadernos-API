@@ -166,12 +166,5 @@ RSpec.describe UsersController, type: :controller do
       }.to change(User, :count).by(-1)
     end
 
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      @token = AuthenticateUser.call(user.email, user.password)
-      request.headers["Authorization"] = @token.result
-      delete :destroy, params: {id: user.to_param}, session: valid_session
-      expect(response).to have_http_status(200)
-    end
   end
 end

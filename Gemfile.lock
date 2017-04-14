@@ -174,12 +174,10 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
-
   coveralls (~> 0.8.19)
   database_cleaner
   factory_girl_rails
   jbuilder (~> 2.5)
-
   jwt
   listen (~> 3.0.5)
   pg
