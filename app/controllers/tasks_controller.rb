@@ -18,6 +18,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
+      @task.save_file(task_params) if params[:task][:document_data]
+      @task.save_image(task_params) if params[:task][:image_data]
       render json: @task, status: :created, location: @task
     else
       render json: @task.errors, status: :unprocessable_entity
@@ -46,6 +48,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:category_id, :title, :content, :user_id)
+      params.require(:task).permit(:category_id, :title, :content, :book_id, :document_data => [], :image_data => [])
     end
 end
