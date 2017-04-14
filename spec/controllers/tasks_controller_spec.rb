@@ -15,11 +15,16 @@ RSpec.describe TasksController, type: :controller do
     }
   }
 
+  let(:user){{
+    :email => task.book.user.email,
+    :password => task.book.user.password
+    }}
+
   let(:valid_session){ {} }
 
   describe "GET #index" do
     it "assigns all tasks as @tasks" do
-      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
+      @token = AuthenticateUser.call(user[:email], user[:password])
       request.headers["Authorization"] = @token.result
 
       get :index, params: {}, session: valid_session
@@ -29,9 +34,8 @@ RSpec.describe TasksController, type: :controller do
 
   describe "GET #show" do
     it "assigns task as @task" do
-      expect(task.save).to be(true)
 
-      @token = AuthenticateUser.call(book.user.email, book.user.password)
+      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
       request.headers["Authorization"] = @token.result
 
       get :show, :params => {id_task: task.id, id_book: book.id, id: user.id}
