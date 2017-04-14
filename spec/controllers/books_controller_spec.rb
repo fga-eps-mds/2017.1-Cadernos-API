@@ -44,15 +44,16 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe "PUT #update" do
+
+    let(:new_attributes) {
+      {:title => "newValid Title"}
+    }
+
+    let(:invalid_attributes) {
+      {:title => "ivT"}
+    }
+
     context "with valid params" do
-
-      let(:new_attributes) {
-        {:title => "newValid Title"}
-      }
-
-      let(:invalid_attributes) {
-        {:title => "ivT"}
-      }
 
       it "updates the requested @book" do
         book = FactoryGirl.create :book
@@ -62,17 +63,17 @@ RSpec.describe BooksController, type: :controller do
         book.reload
         expect(book.title).to eq(new_attributes[:title])
       end
+    end
 
-      context "with invalid params" do
-        it "assigns the book as @book" do
-          book = FactoryGirl.create :book
-          @token = AuthenticateUser.call(book.user.email, book.user.password)
-          request.headers["Authorization"] = @token.result
-          put :update, params: {id: book.id, book: invalid_attributes}, session: valid_session
-          expect(assigns(:book)).to eq(book)
-        end
+    context "with invalid params" do
+      it "won't update the book" do
+        book = FactoryGirl.create :book
+        @token = AuthenticateUser.call(book.user.email, book.user.password)
+        request.headers["Authorization"] = @token.result
+        put :update, params: {id: book.id, book: invalid_attributes}, session: valid_session
+        book.reload
+        expect(assigns(book.title)).not_to eq(invalid_attributes[:title])
       end
-
     end
 
   end
