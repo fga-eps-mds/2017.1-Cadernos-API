@@ -1,4 +1,4 @@
-# This will guess the User class
+# This will guess the Book class
 FactoryGirl.define do
   factory :book do
     title "Valid Title"
