@@ -34,11 +34,10 @@ RSpec.describe TasksController, type: :controller do
 
   describe "GET #show" do
     it "assigns task as @task" do
-
-      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
+      @token = AuthenticateUser.call(user[:email], user[:password])
       request.headers["Authorization"] = @token.result
 
-      get :show, :params => {id_task: task.id, id_book: book.id, id: user.id}
+      get :show, :params => {id: task.id}
       expect(assigns(:task)).to eq(task)
     end
   end
