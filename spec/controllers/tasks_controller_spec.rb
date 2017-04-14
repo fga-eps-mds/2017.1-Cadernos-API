@@ -85,7 +85,7 @@ RSpec.describe TasksController, type: :controller do
 
       it "updates the requested @task" do
         task = FactoryGirl.create :task
-        @token = AuthenticateUser.call(book.user.email, book.user.password)
+      @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
         request.headers["Authorization"] = @token.result
         put :update, params: {id: task.id, task: new_attributes}, session: valid_session
         task.reload
@@ -94,11 +94,11 @@ RSpec.describe TasksController, type: :controller do
 
       context "with invalid params" do
         it "assigns the book as @book" do
-          book = FactoryGirl.create :book
-          @token = AuthenticateUser.call(book.user.email, book.user.password)
+          task = FactoryGirl.create :task
+          @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
           request.headers["Authorization"] = @token.result
-          put :update, params: {id: book.id, book: invalid_attributes}, session: valid_session
-          expect(assigns(:book)).to eq(book)
+          put :update, params: {id: task.id, task: invalid_attributes}, session: valid_session
+          expect(assigns(:tasks)).to eq(task)
         end
       end
 
