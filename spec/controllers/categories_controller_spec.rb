@@ -117,37 +117,47 @@ RSpec.describe CategoriesController, type: :controller do
 
     it "updates the requested category" do
       category = Category.create! valid_attributes
-      @token = AuthenticateCategory.call(category.name, category.description)
+      @token = AuthenticateUser.call(category.user.email, category.user.password)
       request.headers["Authorization"] = @token.result
-      put :update, params: {id: category.to_param, category: new_attributes}, session: valid_session
+      put :update, params: {id: category.id, category: new_attributes}, session: valid_session
       category.reload
       expect(category.name).to eq(new_attributes[:name])
     end
 
     it "assigns the requested category as @category" do
       category = Category.create! valid_attributes
-      @token = AuthenticateCategory.call(category.name, category.description)
+      @token = AuthenticateUser.call(category.user.email, category.user.password)
       request.headers["Authorization"] = @token.result
-      put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
+      put :update, params: {id: category.id, category: valid_attributes}, session: valid_session
       expects(assigns(:category)).to eq(category)
     end
 
     it "return the category once it is created" do
       category = Category.create! valid_attributes
-      @token = AuthenticateCategory.call(category.name, category.description)
+      @token = AuthenticateUser.call(category.user.email, category.user.password)
       request.headers["Authorization"] = @token.result
-      put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
+      put :update, params: {id: category.id, category: valid_attributes}, session: valid_session
       expect(response).to have_http_status(200)
     end
 
     context "with invalid params" do
       it "assigns the category as @category" do
         category = Category.create! valid_attributes
-        @token = AuthenticateCategory.call(category.name, category.description)
+        @token = AuthenticateUser.call(category.user.email, category.user.password)
         request.headers["Authorization"] = @token.result
-        put :update, params: {id: category.to_param, category: invalid_attributes}, session: valid_session
+        put :update, params: {id: category.id, category: invalid_attributes}, session: valid_session
         expect(assigns(:category)).to eq(category)
       end
+
+      it "wont update the category" do
+        category = Category.create! invalid_attributes
+        @token = AuthenticateUser.call(category.user.email, category.user.password)
+        request.headers["Authorization"] = @token.result
+        put :update, params: {id: category.id, category: invalid_attributes}, session: valid_session
+        category.reload
+        expect(assigns(category.name)).not_to eq(invalid_attributes[:name])
+      end
+
     end
 
   end
@@ -155,18 +165,18 @@ RSpec.describe CategoriesController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested category" do
       category = Category.create! valid_attributes
-      @token = AuthenticateCategory.call(category.name, category.description)
+      @token = AuthenticateUser.call(category.user.email, category.user.password)
       request.headers["Authorization"] = @token.result
       expect {
-        delete :destroy, params: {id: category.to_param}, session: valid_session
+        delete :destroy, params: {id: category.id}, session: valid_session
       }.to change(Category, :count).by(-1)
     end
 
     it "redirects to the categories list" do
       category = Category.create! valid_attributes
-      @token = AuthenticateCategory.call(category.name, category.description)
+      @token = AuthenticateUser.call(category.user.email, category.user.password)
       request.headers["Authorization"] = @token.result
-      delete :destroy, params: {id: category.to_param}, session: valid_session
+      delete :destroy, params: {id: category.id}, session: valid_session
       expect(response).to redirect_to(categories_url)
     end
   end

@@ -32,7 +32,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
   gem 'simplecov'
-  gem "factory_girl_rails"
+  gem 'factory_girl_rails'
   gem 'coveralls', require: false
   gem 'rails-controller-testing'
   # Use sqlite3 as the database for Active Record
@@ -52,7 +52,7 @@ group :production do
 end
 
 
-gem 'rails-controller-testing'
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
