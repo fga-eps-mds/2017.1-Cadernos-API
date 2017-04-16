@@ -82,9 +82,12 @@ RSpec.describe UsersController, type: :controller do
         expect(assigns(:user)).to be_persisted
       end
 
-      it "redirects to the created user" do
+      it "returns the user auth_token once its created" do
         post :create, params: {user: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(201)
+
+        expect(response).to have_http_status(:created)
+        expect(response.headers["auth_token"]).not_to be(nil)
+        expect(response.headers["auth_token"]).to be_kind_of(String)
       end
     end
 
