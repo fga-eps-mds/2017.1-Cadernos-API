@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170413233813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_documents_on_item_id"
+
   end
 
   create_table "categories", force: :cascade do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170413233813) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+
   end
 
   create_table "users", force: :cascade do |t|
