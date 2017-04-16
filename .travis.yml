@@ -8,6 +8,10 @@ sript:
   - bundle exec rspec
 sudo: false
 dist: xenial
+branch:
+  only:
+    - master
+    - homolog
 deploy:
   provider: heroku
   api_key:
@@ -15,8 +19,6 @@ deploy:
   app:
     homolog: cadernos-api
   run:
-    - "rake db:drop"
-    - "rake db:create"
     - "rake db:migrate"
 addons:
     code_climate:

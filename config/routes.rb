@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   resources :users
-  get '/users/:id', to: 'users#show'
+  resources :books
+  resources :categories
 
   post 'authenticate', to: 'authentication#authenticate'
 
