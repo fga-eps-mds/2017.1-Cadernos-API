@@ -16,14 +16,15 @@ Para rodar a API do aplicativo cadernos localmente basta clonar repositório e e
 o seguintes comandos:
 
 ```bash
-vagrant up
+vagrant up mdsgpp
+vagrant ssh mdsgpp
 ```
 
 Após a inicialização da maquina virtual, execulte:
 
 ```bash
 cd /vagrant
-rails s
+rails s -b 0.0.0.0
 ```
 
 Pronto! A API estará disponível em `http://localhost:3000`.
