@@ -2,6 +2,6 @@
 FactoryGirl.define do
   factory :category do
     name "Valid Name"
-    description "Valid Destription"
+    description "Valid Description"
   end
 end

@@ -22,7 +22,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      @token = AuthenticateUser.call(@user.email, @user.password)
+
+      response.set_header("auth_token", @token.result)
+      render :show, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
