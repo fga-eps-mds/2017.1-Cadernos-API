@@ -6,12 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
-User.create(name: 'lucas', email: 'emailTest@email.com', email_confirmation: 'emailTest@email.com', password: '123456')
-User.create(name: 'teste', email: 'emailTest1@email.com', email_confirmation: 'emailTest1@email.com', password: '1234567')
-
-Book.create(title: 'testLivro', user_id: 1)
-Book.create(title: 'testLivro2', user_id: 1)
-Book.create(title: 'testLivro3', user_id: 2)
-Task.create(title: 'taskTitle', content: 'testContent', book_id: 1)
-Task.create(title: 'taskTitle', content: 'testContent', book_id: 1)
+@user = User.create(name: 'teste', email: 'test@mail.com', email_confirmation: 'test@mail.com', password: '123456')
+@book = Book.create(title: 'testLivro', user: @user)
+Task.create(title: 'taskTitle', content: 'testContent', book: @book)

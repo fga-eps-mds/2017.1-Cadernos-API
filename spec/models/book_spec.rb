@@ -18,9 +18,7 @@ RSpec.describe Book, type: :model do
 
   before(:each) do
    		@user = FactoryGirl.create :user
-
       @book = Book.new
-
   end
 
  	describe "user_id validations" do
@@ -56,6 +54,5 @@ RSpec.describe Book, type: :model do
       @book.title = "valid book title"
       expect(@book.save).to be(true)
     end
-
   end
 end
