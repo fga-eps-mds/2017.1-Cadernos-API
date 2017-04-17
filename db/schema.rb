@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413233813) do
+ActiveRecord::Schema.define(version: 20170414165747) do
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,21 +21,45 @@ ActiveRecord::Schema.define(version: 20170413233813) do
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
-  create_table "documents", force: :cascade do |t|
-    t.integer  "item_id"
-    t.string   "document"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_documents_on_item_id"
-
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
 
+  create_table "documents", force: :cascade do |t|
+    t.integer  "task_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.index ["task_id"], name: "index_documents_on_task_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "task_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.index ["task_id"], name: "index_images_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "book_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "files_list"
+    t.index ["book_id", "created_at"], name: "index_tasks_on_book_id_and_created_at"
+    t.index ["book_id"], name: "index_tasks_on_book_id"
   end
 
   create_table "users", force: :cascade do |t|

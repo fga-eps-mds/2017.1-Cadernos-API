@@ -77,7 +77,6 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe "PUT #update" do
-
     let(:new_attributes) {
       {:name => "newValid Name",
        :description => "newValidDescription"}
@@ -96,7 +95,6 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     context "with invalid params" do
-
       it "won't update the category" do
         expect(category.save).to be(true)
         @token = AuthenticateUser.call(user.email, user.password)
@@ -113,7 +111,6 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-
     it "destroys the requested category" do
       expect(category.save).to be(true)
       @token = AuthenticateUser.call(user.email, user.password)

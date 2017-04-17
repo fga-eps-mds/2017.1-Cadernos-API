@@ -2,11 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Book, type: :model do
 
+	before(:each) do
+		@user = User.create :name => "usuario", :password => "123456"
+	end
+
+	describe "user_id validations" do
+		it "shouldnt save if theres no user" do
+			@book = Book.new :title => "ValidTitle"
+			expect(@book.save).to be(false)
+			expect(@book.errors[:user]).to include("must exist")
+			@book.user = @user
+			expect(@book.save).to be(true)
+		end
+	end
+
   before(:each) do
    		@user = FactoryGirl.create :user
-
       @book = Book.new
-
   end
 
  	describe "user_id validations" do
@@ -42,7 +54,5 @@ RSpec.describe Book, type: :model do
       @book.title = "valid book title"
       expect(@book.save).to be(true)
     end
-
   end
-
 end

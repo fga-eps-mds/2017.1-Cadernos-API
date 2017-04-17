@@ -21,6 +21,9 @@ gem 'jwt'
 
 gem 'simple_command'
 
+#Upload file gem
+gem "paperclip"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -51,5 +54,3 @@ end
 group :production do
   gem 'pg'
 end
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
