@@ -4,8 +4,7 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.integer :category_id
       t.string :title
       t.text :content
-      t.integer :book_id
-
+      t.references :book, index: true, foreign_key: true
       t.timestamps
     end
     add_index :tasks, [:book_id, :created_at]
