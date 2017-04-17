@@ -21,7 +21,6 @@ RSpec.describe Task, type: :model do
       @task.content = "qualquer coisa aqui serve"
       expect(@task.save).to be(false)
       expect(@task.errors[:book]).to include("must exist")
-      expect(@task.errors[:book_id]).to include("can't be blank")
       @task.book = @book
       expect(@task.save).to be(true)
     end

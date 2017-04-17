@@ -28,7 +28,7 @@ RSpec.describe Category, type: :model do
 
       @category.name = "a"*81
       expect(@category.save).not_to be(true)
-      expect(@category.errors[:name]).to include("is too long (maximum is 80 characters)")
+      expect(@category.errors[:name]).to include("is too long (maximum is 30 characters)")
 
       @category.name = "Valid Name"
       expect(@category.save).to be(true)
