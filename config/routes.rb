@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   resources :books
   resources :categories
 
-
   post 'authenticate', to: 'authentication#authenticate'
-
   get 'users/:id/books' => 'users#books'
 
-  get 'users/:id/books/:id_book' => 'books#show'
 end
