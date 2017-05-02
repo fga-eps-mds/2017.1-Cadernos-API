@@ -25,7 +25,5 @@ addons:
         repo_token: c277e3c368b533d9674e2e08ddc7db4e155899532abf9e11fdd0531e9d848be1
 
 notifications:
-  slack:
-    rooms:
-      - gpp-2017:8f4lqaCBwjmT8QhJkLlG7vaN#tavis
+  slack: gpp-2017:8f4lqaCBwjmT8QhJkLlG7vaN
 
