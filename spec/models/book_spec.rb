@@ -1,4 +1,5 @@
 require 'rails_helper'
+require Rails.root.join('spec', 'test_helpers', 'encode_image.rb')
 
 RSpec.describe Book, type: :model do
 
@@ -53,6 +54,24 @@ RSpec.describe Book, type: :model do
       expect(@book.errors[:title]).to include("is too long (maximum is 70 characters)")
       @book.title = "valid book title"
       expect(@book.save).to be(true)
+    end
+  end
+
+  describe "book cover" do
+    it "gives a missing image as default when there is no cover setted to the book" do
+      expect(@book.cover.url).to eq("/images/medium/missing.jpg");
+    end
+
+    it "decode and generates medium and thumb sizes of a given base64 encoded image" do
+      base64_image = encode_image_to_base64(test_image, "jpg")
+
+      expect(@book.cover.url).to eq("/images/medium/missing.jpg")
+      @book.title = "book with cover"
+      @book.user = @user
+      @book.cover_base = base64_image
+
+      expect(@book.save).to be(true)
+      expect(@book.cover.url).not_to eq("/images/medium/missing.jpg")
     end
   end
 end
