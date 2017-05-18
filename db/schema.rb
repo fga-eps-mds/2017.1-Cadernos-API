@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414165747) do
+ActiveRecord::Schema.define(version: 20170518013847) do
 
   create_table "books", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "title"
     t.integer  "user_id"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
     t.index ["created_at"], name: "index_books_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_books_on_user_id"
   end

@@ -1,14 +1,12 @@
 class BooksController < ApplicationController
 
-  before_action :set_book, only: [:update, :destroy, :show]
+  before_action :set_book, only: [:update, :destroy, :show, :set_cover]
 
   def index
     @books = Book.all
-    render json: @books
   end
 
   def show
-    render json: @book
   end
 
   def update
@@ -31,6 +29,16 @@ class BooksController < ApplicationController
 
   def destroy
     @book.destroy
+  end
+
+  def set_cover
+    @book.cover_base = params[:cover_base]
+
+    if @book.save
+      render json: {success: true, book: @book}
+    else
+      render json: {success: false, errors: @book.errors}
+    end
   end
 
   private
