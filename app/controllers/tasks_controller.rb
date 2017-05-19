@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  skip_before_action :authenticate_request, only: [:show, :index]
   before_action :set_task, only: [:show, :update, :destroy]
 
   # GET /tasks
