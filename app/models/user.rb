@@ -5,7 +5,8 @@ class User < ApplicationRecord
   validates :email, confirmation: true, presence: true, uniqueness: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email_confirmation, presence: true
-  validates :password, presence: true, on: :create 
+  validates :password, presence: true, on: :create
   has_many :books, dependent: :destroy
+  has_many :tasks
 
 end
