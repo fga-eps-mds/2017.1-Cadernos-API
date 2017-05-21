@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :book
-  
+  belongs_to :user
+
   validates :title, presence: true, length:{in: 5..80}
   validates :content, presence: true
 
