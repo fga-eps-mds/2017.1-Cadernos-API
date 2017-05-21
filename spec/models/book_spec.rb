@@ -59,7 +59,19 @@ RSpec.describe Book, type: :model do
 
   describe "book cover" do
     it "gives a missing image as default when there is no cover setted to the book" do
-      expect(@book.cover.url).to eq("/images/medium/missing.jpg");
+      expect(@book.cover.url).to eq("/images/medium/missing.jpg")
+    end
+
+    it "gives the original cover image" do
+      expect(@book.cover_original).to eq("/images/original/missing.jpg")
+    end
+
+    it "gives the medium cover image" do
+      expect(@book.cover_medium).to eq("/images/medium/missing.jpg")
+    end
+
+    it "gives the thumb cover image" do
+      expect(@book.cover_thumb).to eq("/images/thumb/missing.jpg")
     end
 
     it "decode and generates medium and thumb sizes of a given base64 encoded image" do
