@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170518013847) do
     t.datetime "updated_at",  null: false
     t.integer  "files_list"
     t.index ["book_id", "created_at"], name: "index_tasks_on_book_id_and_created_at"
+    t.index ["book_id"], name: "index_tasks_on_book_id"
   end
 
   create_table "users", force: :cascade do |t|

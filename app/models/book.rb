@@ -17,6 +17,18 @@ class Book < ApplicationRecord
   attr_accessor :cover_base
   before_validation :parse_image
 
+  def cover_original
+    self.cover.url(:original)
+  end
+
+  def cover_medium
+    self.cover.url(:medium)
+  end
+
+  def cover_thumb
+    self.cover.url(:thumb)
+  end
+
   private
     def parse_image
       if cover_base
