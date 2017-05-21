@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
 
-  let(:user) {
+  let(:user){
     create :user
   }
-
+  
   let(:book) {
     create :book, title: 'first', user: user
   }

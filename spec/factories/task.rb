@@ -4,5 +4,6 @@ FactoryGirl.define do
     title "ValidTitle"
     content "Valid Content"
     association :book
+    association :user
   end
 end
