@@ -113,4 +113,22 @@ RSpec.describe BooksController, type: :controller do
       }.to change(Book, :count).by(0)
     end
   end
+  
+  describe "GET tasks" do
+    it "displays the tasks of a given book" do
+      tasks = []
+      tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book)
+      tasks << Task.create(title: "task 2", content: "tast 2", user: user, book: book)
+      
+      
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+      
+      get :tasks, params: {id: book.id}
+      
+      expect(
+        assigns(:tasks)
+      ).to eq(tasks)
+    end
+  end
 end

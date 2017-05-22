@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get 'users/:id/books' => 'users#books'
 
   post "/books/:id/cover" => "books#set_cover"
+  get "/books/:id/tasks" => "books#tasks"
 end
