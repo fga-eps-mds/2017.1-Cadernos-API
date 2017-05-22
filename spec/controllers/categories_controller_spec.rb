@@ -32,6 +32,25 @@ RSpec.describe CategoriesController, type: :controller do
       expect(assigns(:categories)).to eq([category])
     end
 
+    it "will paginate category" do
+      6.times do |n|
+        Category.create! name: "Category #{n}", description: "Some test description"
+      end
+
+      get :index, params: {page: 1, per_page: 5}
+
+      expect(Category.count > 5).to eq(true)
+
+      expect(
+        assigns(:categories).length
+      ).to eq(5)
+
+      get :index, params: {page: 1, per_page: 2}
+
+      expect(
+        assigns(:categories).length
+      ).to eq(2)
+    end
   end
 
   describe "GET #show" do
