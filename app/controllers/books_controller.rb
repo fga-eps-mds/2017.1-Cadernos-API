@@ -3,14 +3,14 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks]
 
   def index
-    @books = Book.all
+    @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
   end
 
   def show
   end
 
   def tasks
-    @tasks = @book.tasks
+    @tasks = @book.tasks.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
   end
 
   def update

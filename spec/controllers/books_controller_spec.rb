@@ -23,11 +23,28 @@ RSpec.describe BooksController, type: :controller do
     it "assigns all books as @books" do
       expect(book.save).to be(true)
 
-      @token = AuthenticateUser.call(user.email, user.password)
-      request.headers["Authorization"] = @token.result
-
       get :index
       expect(assigns(:books)).to eq([book])
+    end
+
+    it "will paginate book" do
+      6.times do |n|
+        Book.create! title: "Test book #{n}", user: user
+      end
+
+      get :index, params: {page: 1, per_page: 5}
+
+      expect(Book.count > 5).to eq(true)
+
+      expect(
+        assigns(:books).length
+      ).to eq(5)
+
+      get :index, params: {page: 1, per_page: 2}
+
+      expect(
+        assigns(:books).length
+      ).to eq(2)
     end
   end
 
