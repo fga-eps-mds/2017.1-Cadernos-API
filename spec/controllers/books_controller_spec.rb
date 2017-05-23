@@ -5,9 +5,13 @@ RSpec.describe BooksController, type: :controller do
   let(:user){
     create :user
   }
-  
+
   let(:book) {
     create :book, title: 'first', user: user
+  }
+
+  let(:category){
+    create :category, name: 'criacao', description: 'criando ousado'
   }
 
   let(:valid_attributes) {
@@ -130,19 +134,19 @@ RSpec.describe BooksController, type: :controller do
       }.to change(Book, :count).by(0)
     end
   end
-  
+
   describe "GET tasks" do
     it "displays the tasks of a given book" do
       tasks = []
-      tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book)
-      tasks << Task.create(title: "task 2", content: "tast 2", user: user, book: book)
-      
-      
+      tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book, category: category)
+      tasks << Task.create(title: "task 2", content: "tast 2", user: user, book: book, category: category)
+
+
       @token = AuthenticateUser.call(user.email, user.password)
       request.headers["Authorization"] = @token.result
-      
+
       get :tasks, params: {id: book.id}
-      
+
       expect(
         assigns(:tasks)
       ).to eq(tasks)
