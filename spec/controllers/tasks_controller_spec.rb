@@ -9,12 +9,16 @@ RSpec.describe TasksController, type: :controller do
     create :user, email: "novoemailagoravai@cooooooooom.com", email_confirmation: "novoemailagoravai@cooooooooom.com"
   }
 
+  let(:category){
+    create :category, name: 'criacao', description: 'criando ousado'
+  }
+
   let(:task) {
-    create :task, book: book, user: user
+    create :task, book: book, user: user, category: category
   }
 
   let(:valid_attributes){
-    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: user.id}
+    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: user.id, category_id: category.id}
   }
 
   let(:invalid_attributes){

@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-
+  has_many :tasks
   validates :name, presence: true,
                    length: {in: 5..30 },
                    uniqueness: true
