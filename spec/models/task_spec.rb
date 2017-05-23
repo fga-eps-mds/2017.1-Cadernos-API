@@ -12,18 +12,23 @@ RSpec.describe Task, type: :model do
     @book = @user.books.new
     @book.title = "titulo teste"
     @book.save
+    @category = Category.new
+    @category.name = "Criação"
+    @category.description = "Espaço reservado para criação"
     @task = Task.new
   end
 
   describe "book_id validations" do
-    it "shouldnt save if theres no book correlated" do
+    it "shouldnt save if theres no book or category correlated" do
       @task.title = "nome de tarefa"
       @task.content = "qualquer coisa aqui serve"
       expect(@task.save).to be(false)
       expect(@task.errors[:book]).to include("must exist")
       expect(@task.errors[:user]).to include("must exist")
+      expect(@task.errors[:category]).to include("must exist")
       @task.book = @book
       @task.user = @user
+      @task.category = @category
       expect(@task.save).to be(true)
     end
   end
@@ -32,6 +37,7 @@ RSpec.describe Task, type: :model do
     it "shouldnt save if theres no task title" do
       @task.book = @book
       @task.user = @user
+      @task.category = @category
       @task.content = "qualquer coisa aqui serve"
       @task.title = nil
       expect(@task.save).to be(false)
@@ -43,6 +49,7 @@ RSpec.describe Task, type: :model do
     it "shouldnt save if task title is too short or too long" do
       @task.book = @book
       @task.user = @user
+      @task.category = @category
       @task.content = "qualquer coisa aqui serve"
       @task.title = "abc"
       expect(@task.save).to be(false)
@@ -59,6 +66,7 @@ RSpec.describe Task, type: :model do
     it "shouldnt save if theres no content" do
       @task.book = @book
       @task.user = @user
+      @task.category = @category
       @task.title = "titulo bem valido"
       @task.content = nil
       expect(@task.save).to be(false)
