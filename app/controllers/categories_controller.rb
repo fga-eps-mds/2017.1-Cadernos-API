@@ -35,7 +35,11 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
-    @category.destroy
+    if Category.BASE_CATEGORIES.include? @category.name
+      render json: {error: "Uma categoria base não pode ser deletada"}, status: 401
+    else
+      @category.destroy
+    end
   end
 
   private
