@@ -3,6 +3,10 @@ class Category < ApplicationRecord
   validates :name, presence: true,
                    length: {in: 5..30 },
                    uniqueness: true
-  validates :description, presence: true,
-                          length: {in: 5..200}
+
+  validates :description, length: {maximum: 200}
+
+  def self.BASE_CATEGORIES
+    ["Criação", "Experimento", "Teórico"]
+  end
 end

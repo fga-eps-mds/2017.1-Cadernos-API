@@ -139,5 +139,30 @@ RSpec.describe CategoriesController, type: :controller do
       }.to change(Category, :count).by(-1)
       expect(Category.find_by_id(category.id)).to be(nil)
     end
+
+    it "Won't destroy a base category" do
+      expect(category.save).to be(true)
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+
+      c1 = Category.create! name: Category.BASE_CATEGORIES[0]
+      c2 = Category.create! name: Category.BASE_CATEGORIES[1]
+      c3 = Category.create! name: Category.BASE_CATEGORIES[2]
+
+      delete :destroy, params: {id: c1.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
+
+      delete :destroy, params: {id: c2.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
+
+      delete :destroy, params: {id: c3.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
+    end
   end
 end

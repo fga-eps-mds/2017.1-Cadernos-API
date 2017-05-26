@@ -37,20 +37,8 @@ RSpec.describe Category, type: :model do
   end
 
   describe "Description validations" do
-    it "Won't save a category without an description" do
-      @category.description = ""
-      expect(@category.save).not_to be(true)
-      expect(@category.errors[:description]).to include("can't be blank")
-
-      @category.description = "Valid Description"
-      expect(@category.save).to be(true)
-    end
 
     it "Won't save a description with invalid name length" do
-      @category.description = "Test"
-      expect(@category.save).not_to be(true)
-      expect(@category.errors[:description]).to include("is too short (minimum is 5 characters)")
-
       @category.description = "a"*201
       expect(@category.save).not_to be(true)
       expect(@category.errors[:description]).to include("is too long (maximum is 200 characters)")
