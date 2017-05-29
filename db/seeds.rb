@@ -7,5 +7,25 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 @user = User.create(name: 'teste', email: 'test@mail.com', email_confirmation: 'test@mail.com', password: '123456')
-@book = Book.create(title: 'testLivro', user: @user)
-Task.create(title: 'taskTitle', content: 'testContent', book: @book, user_id: @user.id)
+@book1 = Book.create(title: 'test caderno 1', user: @user)
+@book2 = Book.create(title: 'test caderno 2', user: @user)
+@categories = Category.first(3)
+
+
+i = 0
+@categories.each do |c|
+  Task.create! title: "task title #{i}", content: 'test content', book: @book1, user: @user, category: c
+  i += 1
+  
+  Task.create! title: "task title #{i}", content: 'test content', book: @book1, user: @user, category: c
+  i += 1
+end
+
+
+@categories.each do |c|
+  Task.create! title: "task title #{i}", content: 'test content', book: @book2, user: @user, category: c
+  i += 1
+  
+  Task.create! title: "task title #{i}", content: 'test content', book: @book2, user: @user, category: c
+  i += 1
+end

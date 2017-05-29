@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show]
-  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks]
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail]
+  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail]
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
@@ -9,8 +9,13 @@ class BooksController < ApplicationController
   def show
   end
 
+  def full_detail
+    @tasks = get_book_tasks
+    @categories = Category.joins(:tasks).where("book_id = ?", @book.id).distinct
+  end
+
   def tasks
-    @tasks = @book.tasks.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+    @tasks = get_book_tasks
   end
 
   def update
@@ -54,4 +59,7 @@ class BooksController < ApplicationController
       params.require(:book).permit(:title, :user_id)
     end
 
+    def get_book_tasks
+      @book.tasks.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+    end
 end

@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   post "/books/:id/cover" => "books#set_cover"
   get "/books/:id/tasks" => "books#tasks"
+  
+  get "/books/:id/full-detail" => "books#full_detail"
 end
