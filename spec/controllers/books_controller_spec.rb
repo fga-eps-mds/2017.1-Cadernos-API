@@ -135,7 +135,7 @@ RSpec.describe BooksController, type: :controller do
     end
   end
 
-  describe "GET tasks" do
+  describe "GET #tasks" do
     it "displays the tasks of a given book" do
       tasks = []
       tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book, category: category)
@@ -150,6 +150,22 @@ RSpec.describe BooksController, type: :controller do
       expect(
         assigns(:tasks)
       ).to eq(tasks)
+    end
+  end
+  
+  describe "GET #full_detail" do
+    it "displays the book with it's tasks and the categories of the tasks" do
+      Task.destroy_all
+      
+      tasks = []
+      tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book, category: category)
+      tasks << Task.create(title: "task 2", content: "tast 2", user: user, book: book, category: category)
+
+      get :full_detail, params: {id: book.id}
+      
+      expect(assigns(:book)).to eq(book)
+      expect(assigns(:tasks)).to eq(tasks)
+      expect(assigns(:categories)).to eq([category])
     end
   end
 end
