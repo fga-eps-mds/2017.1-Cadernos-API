@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show, :full_detail]
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks]
   before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail]
 
   def index
@@ -60,6 +60,6 @@ class BooksController < ApplicationController
     end
 
     def get_book_tasks
-      @book.tasks.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+      @book.tasks.includes(:user).paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
     end
 end
