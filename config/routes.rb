@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :memberships
   resources :invites
   resources :tasks
   resources :users
   resources :books
   resources :categories
   resources :invites
+  resources :memberships
 
   post 'authenticate', to: 'authentication#authenticate'
   get 'users/:id/books' => 'users#books'
