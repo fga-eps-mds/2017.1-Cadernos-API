@@ -4,4 +4,5 @@ class Book < ApplicationRecord
   validates :title,
             presence: true,
             length: {in: 5..70}
+  has_many :invites
 end
