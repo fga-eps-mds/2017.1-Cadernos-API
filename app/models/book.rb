@@ -5,6 +5,10 @@ class Book < ApplicationRecord
             presence: true,
             length: {in: 5..70}
 
+  has_many :invites
+  has_many :members, :class_name => 'Membership', :foreign_key => 'member_id'
+
+
   has_attached_file :cover,
                     styles: {medium: "240x120", thumb: "80x40"},
                     content_type: /\Aimage/,
@@ -37,4 +41,5 @@ class Book < ApplicationRecord
         self.cover = image
       end
     end
+
 end

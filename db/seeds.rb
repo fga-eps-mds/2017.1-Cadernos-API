@@ -7,6 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+@user = User.create(name: 'teste', email: 'test@mail.com', email_confirmation: 'test@mail.com', password: '123456')
+@book = Book.create(title: 'testLivro', user: @user)
+Task.create(title: 'taskTitle', content: 'testContent', book: @book)
+User.create(name: 'UserTest', email: 'tester@mail.com', email_confirmation: 'tester@mail.com', password: '1234567')
+
+
 user_test = User.create(name: 'teste', email: 'test@mail.com', email_confirmation: 'test@mail.com', password: '123456')
 user_fulano = User.create(name: 'fulano', email: 'fulano@mail.com', email_confirmation: 'fulano@mail.com', password: '123456')
 
