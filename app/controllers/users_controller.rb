@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create]
-  before_action :set_user, only: [:show, :update, :destroy, :books, :invites]
+  before_action :set_user, only: [:show, :update, :destroy, :books, :invites, :sent_invites, :memberships]
 
 
   # GET /users
@@ -14,17 +14,19 @@ class UsersController < ApplicationController
   end
 
   def books
-    puts "="*80
-    puts @user
-    puts "="*80
     @books = @user.books.all
   end
 
   def invites
-    puts "="*80
-    puts @user
-    puts "="*80
     @invites = @user.invitations.all
+  end
+
+  def sent_invites
+    @invites = @user.sent_invites.all
+  end
+
+  def memberships
+    @memberships = @user.memberships.all
   end
 
   # POST /users
