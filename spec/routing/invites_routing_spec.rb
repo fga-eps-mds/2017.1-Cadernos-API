@@ -7,16 +7,8 @@ RSpec.describe InvitesController, type: :routing do
       expect(:get => "/invites").to route_to("invites#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/invites/new").to route_to("invites#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/invites/1").to route_to("invites#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/invites/1/edit").to route_to("invites#edit", :id => "1")
     end
 
     it "routes to #create" do
