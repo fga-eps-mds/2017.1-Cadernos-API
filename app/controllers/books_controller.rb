@@ -1,14 +1,22 @@
 class BooksController < ApplicationController
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks]
+  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members]
 
-  before_action :set_book, only: [:update, :destroy, :show, :members]
 
   def index
-    @books = Book.all
-    render json: @books
+    @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
   end
 
   def show
-    render json: @book
+  end
+
+  def full_detail
+    @tasks = get_book_tasks
+    @categories = Category.joins(:tasks).where("book_id = ?", @book.id).distinct
+  end
+
+  def tasks
+    @tasks = get_book_tasks
   end
 
   def members
@@ -37,6 +45,16 @@ class BooksController < ApplicationController
     @book.destroy
   end
 
+  def set_cover
+    @book.cover_base = params[:cover_base]
+
+    if @book.save
+      render json: {success: true, book: @book}
+    else
+      render json: {success: false, errors: @book.errors}
+    end
+  end
+
   private
     def set_book
       @book = Book.find(params[:id])
@@ -46,4 +64,7 @@ class BooksController < ApplicationController
       params.require(:book).permit(:title, :user_id)
     end
 
+    def get_book_tasks
+      @book.tasks.includes(:user).paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+    end
 end

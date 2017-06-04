@@ -1,10 +1,10 @@
 class CategoriesController < ApplicationController
+  skip_before_action :authenticate_request, only: [:show, :index]
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
   def index
-    @categories = Category.all
-
+    @categories = Category.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('name ASC')
     render json: @categories
   end
 
@@ -35,7 +35,11 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
-    @category.destroy
+    if Category.BASE_CATEGORIES.include? @category.name
+      render json: {error: "Uma categoria base não pode ser deletada"}, status: 401
+    else
+      @category.destroy
+    end
   end
 
   private

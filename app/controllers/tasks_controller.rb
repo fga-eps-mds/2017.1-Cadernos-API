@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  skip_before_action :authenticate_request, only: [:show, :index]
   before_action :set_task, only: [:show, :update, :destroy]
 
   # GET /tasks
@@ -46,6 +47,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:category_id, :title, :content, :book_id, :document_data => [], :image_data => [])
+      params.require(:task).permit(:category_id, :title, :content, :book_id, :user_id, :document_data => [], :image_data => [])
     end
 end
