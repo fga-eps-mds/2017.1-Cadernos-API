@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :update, :destroy]
-  
+
 
   # GET /memberships
   # GET /memberships.json
@@ -18,8 +18,11 @@ class MembershipsController < ApplicationController
   def create
 
     @user = User.find_by_email(membership_params[:email])
+    @book = Book.find(membership_params[:book_id])
+    @owner = User.find(@book.user_id)
 
-    @params = {:email => membership_params[:email], :member_id => @user.id, :book_id => membership_params[:book_id]}
+    @params = {:email => membership_params[:email], :member_id => @user.id, :book_id => membership_params[:book_id],
+                :book_title => @book.title, :book_owner_name => @owner.name, :member_name => @user.name}
 
     @membership = Membership.new(@params)
 

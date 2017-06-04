@@ -4,6 +4,9 @@ class CreateMemberships < ActiveRecord::Migration[5.0]
       t.string :email
       t.integer :book_id
       t.integer :member_id
+      t.string :member_name
+      t.string :book_title
+      t.string :book_owner_name
       t.timestamps
     end
   end
