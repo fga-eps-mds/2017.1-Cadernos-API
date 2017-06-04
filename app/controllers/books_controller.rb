@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  before_action :set_book, only: [:update, :destroy, :show]
+  before_action :set_book, only: [:update, :destroy, :show, :members]
 
   def index
     @books = Book.all
@@ -9,6 +9,10 @@ class BooksController < ApplicationController
 
   def show
     render json: @book
+  end
+
+  def members
+    @members = @book.members.all
   end
 
   def update

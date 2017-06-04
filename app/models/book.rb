@@ -5,4 +5,5 @@ class Book < ApplicationRecord
             presence: true,
             length: {in: 5..70}
   has_many :invites
+  has_many :members, :class_name => 'Membership', :foreign_key => 'member_id'
 end
