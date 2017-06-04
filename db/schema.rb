@@ -54,9 +54,12 @@ ActiveRecord::Schema.define(version: 20170602125315) do
     t.string   "email"
     t.integer  "book_id"
     t.integer  "recipient_id"
+    t.string   "recipient_name"
     t.integer  "sender_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "sender_name"
+    t.string   "book_title"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["book_id", "recipient_id", "sender_id"], name: "index_invites_on_book_id_and_recipient_id_and_sender_id"
   end
 
@@ -64,8 +67,11 @@ ActiveRecord::Schema.define(version: 20170602125315) do
     t.string   "email"
     t.integer  "book_id"
     t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "member_name"
+    t.string   "book_title"
+    t.string   "book_owner_name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "tasks", force: :cascade do |t|
