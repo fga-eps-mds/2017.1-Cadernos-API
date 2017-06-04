@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   post 'authenticate', to: 'authentication#authenticate'
   get 'users/:id/books' => 'users#books'
+  get 'users/:id/invites' => 'users#invites'
 
 end

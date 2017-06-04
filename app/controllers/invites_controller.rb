@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
   before_action :set_invite, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_request
+
 
   # GET /invites
   # GET /invites.json
@@ -17,10 +17,6 @@ class InvitesController < ApplicationController
   # POST /invites.json
   def create
     @user = User.find_by_email(invite_params[:email])
-
-    puts "="*80
-    puts @user.id
-    puts "="*80
 
     @params = {:sender_id => invite_params[:sender_id], :recipient_id => @user.id, :book_id => invite_params[:book_id], :email => invite_params[:email]}
 
