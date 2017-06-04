@@ -17,8 +17,12 @@ class InvitesController < ApplicationController
   # POST /invites.json
   def create
     @user = User.find_by_email(invite_params[:email])
+    @book = Book.find(invite_params[:book_id])
+    @sender = User.find(invite_params[:sender_id])
 
-    @params = {:sender_id => invite_params[:sender_id], :recipient_id => @user.id, :book_id => invite_params[:book_id], :email => invite_params[:email]}
+    @params = {:sender_id => invite_params[:sender_id], :recipient_id => @user.id,
+                :book_id => invite_params[:book_id], :email => invite_params[:email],
+                :book_title => @book.title, :sender_name => @sender.name, :recipient_name => @user.name}
 
     @invite = Invite.new(@params)
 
