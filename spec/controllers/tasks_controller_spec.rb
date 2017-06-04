@@ -5,16 +5,24 @@ RSpec.describe TasksController, type: :controller do
     create :book
   }
 
+  let(:user){
+    create :user, email: "novoemailagoravai@cooooooooom.com", email_confirmation: "novoemailagoravai@cooooooooom.com"
+  }
+
+  let(:category){
+    create :category, name: 'criacao', description: 'criando ousado'
+  }
+
   let(:task) {
-    create :task, book: book
+    create :task, book: book, user: user, category: category
   }
 
   let(:valid_attributes){
-    {title: "NewValidTitle", content: "ValidContent", book_id: book.id}
+    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: user.id, category_id: category.id}
   }
 
   let(:invalid_attributes){
-    {title: "IvT",id_book: book.id, content: ""}
+    {title: "IvT",id_book: book.id, content: "", user_id: user.id}
   }
 
   let(:valid_session){ {} }
@@ -103,4 +111,5 @@ RSpec.describe TasksController, type: :controller do
       end
     end
   end
+
 end

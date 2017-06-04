@@ -10,22 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170602125315) do
 
+
   create_table "books", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "title"
     t.integer  "user_id"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
     t.index ["created_at"], name: "index_books_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "description", default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "documents", force: :cascade do |t|
@@ -78,12 +84,14 @@ ActiveRecord::Schema.define(version: 20170602125315) do
     t.integer  "category_id"
     t.string   "title"
     t.text     "content"
+    t.integer  "user_id"
     t.integer  "book_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "files_list"
     t.index ["book_id", "created_at"], name: "index_tasks_on_book_id_and_created_at"
     t.index ["book_id"], name: "index_tasks_on_book_id"
+    t.index ["user_id", "created_at"], name: "index_tasks_on_user_id_and_created_at"
   end
 
   create_table "users", force: :cascade do |t|

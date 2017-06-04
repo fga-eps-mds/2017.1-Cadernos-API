@@ -32,6 +32,25 @@ RSpec.describe CategoriesController, type: :controller do
       expect(assigns(:categories)).to eq([category])
     end
 
+    it "will paginate category" do
+      6.times do |n|
+        Category.create! name: "Category #{n}", description: "Some test description"
+      end
+
+      get :index, params: {page: 1, per_page: 5}
+
+      expect(Category.count > 5).to eq(true)
+
+      expect(
+        assigns(:categories).length
+      ).to eq(5)
+
+      get :index, params: {page: 1, per_page: 2}
+
+      expect(
+        assigns(:categories).length
+      ).to eq(2)
+    end
   end
 
   describe "GET #show" do
@@ -119,6 +138,31 @@ RSpec.describe CategoriesController, type: :controller do
         delete :destroy, params: {id: category.id}, session: valid_session
       }.to change(Category, :count).by(-1)
       expect(Category.find_by_id(category.id)).to be(nil)
+    end
+
+    it "Won't destroy a base category" do
+      expect(category.save).to be(true)
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+
+      c1 = Category.create! name: Category.BASE_CATEGORIES[0]
+      c2 = Category.create! name: Category.BASE_CATEGORIES[1]
+      c3 = Category.create! name: Category.BASE_CATEGORIES[2]
+
+      delete :destroy, params: {id: c1.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
+
+      delete :destroy, params: {id: c2.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
+
+      delete :destroy, params: {id: c3.id}, session: valid_session
+      expect(response).to have_http_status(401)
+      resp = JSON.parse response.body
+      expect(resp["error"]).to eq("Uma categoria base não pode ser deletada")
     end
   end
 end

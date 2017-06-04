@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   get 'users/:id/memberships' => 'users#memberships'
   get 'books/:id/members' => 'books#members'
 
+  post "/books/:id/cover" => "books#set_cover"
+  get "/books/:id/tasks" => "books#tasks"
+  
+  get "/books/:id/full-detail" => "books#full_detail"
 end
