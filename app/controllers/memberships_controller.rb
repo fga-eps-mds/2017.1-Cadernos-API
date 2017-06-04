@@ -21,8 +21,13 @@ class MembershipsController < ApplicationController
     @book = Book.find(membership_params[:book_id])
     @owner = User.find(@book.user_id)
 
-    @params = {:email => membership_params[:email], :member_id => @user.id, :book_id => membership_params[:book_id],
-                :book_title => @book.title, :book_owner_name => @owner.name, :member_name => @user.name}
+    if @user != nil
+      @params = {:email => membership_params[:email], :member_id => @user.id, :book_id => membership_params[:book_id],
+                  :book_title => @book.title, :book_owner_name => @owner.name, :member_name => @user.name}
+    else
+      @params = {:email => membership_params[:email], :member_id => nil, :book_id => membership_params[:book_id],
+                  :book_title => @book.title, :book_owner_name => @owner.name, :member_name => nil}
+    end
 
     @membership = Membership.new(@params)
 

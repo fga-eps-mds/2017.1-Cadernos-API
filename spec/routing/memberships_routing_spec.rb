@@ -7,16 +7,8 @@ RSpec.describe MembershipsController, type: :routing do
       expect(:get => "/memberships").to route_to("memberships#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/memberships/new").to route_to("memberships#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/memberships/1").to route_to("memberships#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/memberships/1/edit").to route_to("memberships#edit", :id => "1")
     end
 
     it "routes to #create" do
