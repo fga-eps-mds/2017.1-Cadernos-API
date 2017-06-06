@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602125315) do
+ActiveRecord::Schema.define(version: 20170606123824) do
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20170602125315) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.index ["task_id"], name: "index_images_on_task_id"
+  end
+
+  create_table "inspirations", force: :cascade do |t|
+    t.integer  "primary_id"
+    t.string   "primary_title"
+    t.integer  "inspirational_id"
+    t.string   "inspirational_title"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["primary_id", "inspirational_id"], name: "index_inspirations_on_primary_id_and_inspirational_id"
   end
 
   create_table "invites", force: :cascade do |t|
