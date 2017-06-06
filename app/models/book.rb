@@ -6,7 +6,7 @@ class Book < ApplicationRecord
             length: {in: 5..70}
 
   has_many :invites
-  has_many :members, :class_name => 'Membership', :foreign_key => 'member_id'
+  has_many :members, :class_name => 'Membership', :foreign_key => 'book_id'
 
 
   has_attached_file :cover,
