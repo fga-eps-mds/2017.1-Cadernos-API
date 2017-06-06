@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :invites
   resources :memberships
+  resources :inspirations
 
   post 'authenticate', to: 'authentication#authenticate'
   get 'users/:id/books' => 'users#books'
@@ -17,6 +18,6 @@ Rails.application.routes.draw do
 
   post "/books/:id/cover" => "books#set_cover"
   get "/books/:id/tasks" => "books#tasks"
-  
+
   get "/books/:id/full-detail" => "books#full_detail"
 end
