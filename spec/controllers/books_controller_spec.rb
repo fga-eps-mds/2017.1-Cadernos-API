@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
 
-  let(:user){
+  let(:user) {
     create :user
   }
 
@@ -49,6 +49,15 @@ RSpec.describe BooksController, type: :controller do
       expect(
         assigns(:books).length
       ).to eq(2)
+    end
+  end
+
+  describe "GET #search" do
+      it "assigns all books as @books" do
+      expect(book.save).to be(true)
+
+      get :search, :params => {keyword: 'fir'}
+      expect(assigns(:books)).to eq([book])
     end
   end
 
