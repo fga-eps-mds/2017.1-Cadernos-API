@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks]
-  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members]
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :inspirations]
+  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations]
 
 
   def index
@@ -21,6 +21,10 @@ class BooksController < ApplicationController
 
   def members
     @members = @book.members.all
+  end
+
+  def inspirations
+    @inspirations = @book.inspirations.all
   end
 
   def update

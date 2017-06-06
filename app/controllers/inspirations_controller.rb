@@ -1,6 +1,5 @@
 class InspirationsController < ApplicationController
   before_action :set_inspiration, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_request, only: [:index, :create]
 
 
 
@@ -9,7 +8,7 @@ class InspirationsController < ApplicationController
   end
 
   def show
-    
+
   end
 
 def create
