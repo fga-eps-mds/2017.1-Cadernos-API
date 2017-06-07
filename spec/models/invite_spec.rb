@@ -18,6 +18,14 @@ RSpec.describe Invite, type: :model do
     @user_numbertwo.password_confirmation = "nicepassword2"
     @user_numbertwo.save
 
+    @user_numberthree = User.new
+    @user_numberthree.name = "Valid Name Three"
+    @user_numberthree.email = "nice3@email.com"
+    @user_numberthree.email_confirmation = "nice3@email.com"
+    @user_numberthree.password = "nicepassword3"
+    @user_numberthree.password_confirmation = "nicepassword3"
+    @user_numberthree.save
+
     @book = @user.books.new
     @book.title = "titulo teste"
     @book.save
@@ -43,6 +51,18 @@ RSpec.describe Invite, type: :model do
       expect(@invite.save).to be(false)
 
       @invite.sender = @user
+      expect(@invite.save).to be(true)
+    end
+
+    it "won't save with invalid book owner" do
+      @invite.recipient = @user_numbertwo
+      @invite.book = @book
+      @invite.sender = @user_numberthree
+
+      expect(@invite.save).to be(false)
+
+      @invite.sender = @user
+
       expect(@invite.save).to be(true)
     end
 

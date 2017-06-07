@@ -4,4 +4,6 @@ class Membership < ApplicationRecord
 
   validates :book, presence: true
   validates :member, presence: true
+
+  validates_uniqueness_of :member_id, scope: [:book_id]
 end
