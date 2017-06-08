@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :invites
   resources :memberships
+  resources :inspirations
 
   get '/book/search/:keyword' => "books#search"
 
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
 
   post "/books/:id/cover" => "books#set_cover"
   get "/books/:id/tasks" => "books#tasks"
+  get "/books/:id/inspirations" => "books#inspirations"
+
 
   get "/books/:id/full-detail" => "books#full_detail"
 end

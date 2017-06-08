@@ -8,6 +8,7 @@ class Book < ApplicationRecord
   has_many :invites
   has_many :members, :class_name => 'Membership', :foreign_key => 'book_id'
 
+  has_many :inspirations, :class_name => 'Inspiration', :foreign_key => 'primary_id'
 
   has_attached_file :cover,
                     styles: {medium: "240x120", thumb: "80x40"},
