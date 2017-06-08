@@ -1,1 +1,1 @@
-json.array! @inspirations
+json.array! @inspirations, partial: 'inspirations/inspiration', as: :inspiration
