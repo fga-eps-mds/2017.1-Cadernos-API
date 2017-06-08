@@ -152,20 +152,51 @@ RSpec.describe BooksController, type: :controller do
       ).to eq(tasks)
     end
   end
-  
+
   describe "GET #full_detail" do
     it "displays the book with it's tasks and the categories of the tasks" do
       Task.destroy_all
-      
+
       tasks = []
       tasks << Task.create(title: "task 1", content: "tast 1", user: user, book: book, category: category)
       tasks << Task.create(title: "task 2", content: "tast 2", user: user, book: book, category: category)
 
       get :full_detail, params: {id: book.id}
-      
+
       expect(assigns(:book)).to eq(book)
       expect(assigns(:tasks)).to eq(tasks)
       expect(assigns(:categories)).to eq([category])
     end
   end
+
+  describe "GET #inspirations" do
+    it "displays a inspiration of a book" do
+      book_one = Book.create(title: "oiiiiii", user: user)
+      book_two = Book.create(title: "alooooo", user: user)
+      inspiration = Inspiration.create(primary_id: book_one.id, inspirational_id: book_two.id)
+      expect(inspiration.save).to be(true)
+
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+
+      get :inspirations, :params => {id: book_one.id}
+      expect(assigns(:inspirations)).to include(inspiration)
+    end
+
+    it "displays all inspirations of a book" do
+      book_one = Book.create(title: "oiiiiii", user: user)
+      book_two = Book.create(title: "alooooo", user: user)
+      book_three = Book.create(title: "alooo333o", user: user)
+      inspirations = []
+      inspirations << Inspiration.create(primary_id: book_one.id, inspirational_id: book_two.id)
+      inspirations << Inspiration.create(primary_id: book_one.id, inspirational_id: book_three.id)
+
+      @token = AuthenticateUser.call(user.email, user.password)
+      request.headers["Authorization"] = @token.result
+
+      get :inspirations, :params => {id: book_one.id}
+      expect(assigns(:inspirations)).to eq(inspirations)
+    end
+  end
+
 end
