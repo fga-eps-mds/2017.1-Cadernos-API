@@ -29,6 +29,10 @@ def create
 
 end
 
+  def destroy
+    @inspiration.destroy
+  end
+
   def set_inspiration
     @inspiration = Inspiration.find(params[:id])
   end

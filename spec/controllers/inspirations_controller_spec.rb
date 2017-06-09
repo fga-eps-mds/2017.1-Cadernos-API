@@ -12,6 +12,8 @@ RSpec.describe InspirationsController, type: :controller do
         create :book, title: 'otherBook', user: user
     }
 
+
+
     let(:valid_attributes) {
         {
             primary_id: book.id, inspirational_id: other_book.id
@@ -27,12 +29,12 @@ RSpec.describe InspirationsController, type: :controller do
 
             @token = AuthenticateUser.call(user.email, user.password)
             request.headers["Authorization"] = @token.result
-            
+
             get :index
             expect(assigns(:inspirations)).to eq([inspiration])
         end
     end
-    
+
     describe "GET #show" do
         it "assigns inspiration as @inspiration" do
             expect(inspiration.save).to be(true)
@@ -42,29 +44,41 @@ RSpec.describe InspirationsController, type: :controller do
 
             get :show, :params => {id: 1}
             expect(assigns(:inspiration)).to eq(inspiration)
-        end  
+        end
     end
 
     describe "POST #create" do
-        
+
         it "creates a valid inspiration" do
             @token = AuthenticateUser.call(user.email, user.password)
             request.headers["Authorization"] = @token.result
 
             expect {
                 post :create, params: {inspiration: {primary_id: book.id, inspirational_id: other_book.id}}
-                }.to change(Inspiration, :count).by(1)           
+                }.to change(Inspiration, :count).by(1)
         end
-        
+
         it "won't create an inspiration with the same book in primary and inspirational ids" do
 
             @token = AuthenticateUser.call(user.email, user.password)
             request.headers["Authorization"] = @token.result
-            
+
             expect {
             post :create, params: {inspiration: {primary_id: book.id, inspirational_id: book.id}}
             }.to change(Inspiration, :count).by(0)
         end
+    end
+
+    describe "DELETE #destroy" do
+      it "deletes a inspiration" do
+        expect(inspiration.save).to be(true)
+        @token = AuthenticateUser.call(user.email, user.password)
+        request.headers["Authorization"] = @token.result
+        expect {
+          delete :destroy, params: {id: inspiration.id}
+        }.to change(Inspiration, :count).by(-1)
+        expect(Inspiration.find_by_id(inspiration.id)).to be(nil)
+      end
     end
 
 end
