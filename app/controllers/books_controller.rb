@@ -1,10 +1,15 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :inspirations]
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :search, :inspirations]
   before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations]
-
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+  end
+
+  def search
+    keyword = params[:keyword]
+    @books = Book.where("title LIKE '%#{keyword}%'")
+    render json: @books
   end
 
   def show
