@@ -3,7 +3,8 @@ class Book < ApplicationRecord
   has_many :tasks, dependent: :destroy
   validates :title,
             presence: true,
-            length: {in: 5..70}
+            length: {in: 5..70},
+            uniqueness: true
 
   has_many :invites
   has_many :members, :class_name => 'Membership', :foreign_key => 'book_id'
