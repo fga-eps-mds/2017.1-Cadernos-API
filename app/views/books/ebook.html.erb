@@ -1,0 +1,17 @@
+
+<meta charset='utf-8' />
+<h1><%=@book.title%></h1>
+<h2>Atividades:</h2>
+
+<% @book.tasks.all.each do |task| %>
+  <div>
+    <h4><%= task.title %></h4>
+    <p> - <%= task.content %></p>
+  </div>
+<% end %>
+
+<h2>Membros:</h2>
+
+<% @book.members.all.each do |member| %>
+    <p> - <%= member.member_name %></p>
+<% end %>
