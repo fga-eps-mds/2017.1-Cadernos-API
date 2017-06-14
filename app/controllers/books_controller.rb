@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :search, :inspirations]
-  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations]
+  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :search, :inspirations, :createEbook]
+  before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations, :createEbook]
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
@@ -62,6 +62,18 @@ class BooksController < ApplicationController
     else
       render json: {success: false, errors: @book.errors}
     end
+  end
+
+  def createEbook
+    @tasks = @book.tasks
+    @members = @book.members
+    html_path = Rails.root.join('app','views','books','ebook.html.erb')
+    html_string = render_to_string file: html_path
+    puts "="*80
+    puts @book.tasks.all
+    puts "="*80
+    pdf = WickedPdf.new.pdf_from_string(html_string)
+    send_data pdf
   end
 
   private
