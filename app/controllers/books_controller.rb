@@ -65,13 +65,8 @@ class BooksController < ApplicationController
   end
 
   def createEbook
-    @tasks = @book.tasks
-    @members = @book.members
     html_path = Rails.root.join('app','views','books','ebook.html.erb')
     html_string = render_to_string file: html_path
-    puts "="*80
-    puts @book.tasks.all
-    puts "="*80
     pdf = WickedPdf.new.pdf_from_string(html_string)
     send_data pdf
   end
