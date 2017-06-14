@@ -24,4 +24,5 @@ Rails.application.routes.draw do
 
 
   get "/books/:id/full-detail" => "books#full_detail"
+  get "/books/:id/:title.pdf" => "books#createEbook"
 end
