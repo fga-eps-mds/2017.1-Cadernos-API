@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  before_action :set_book, only: [:update, :destroy, :show]
+  before_action :set_book, only: [:update, :destroy, :show, :doidao]
 
   def index
     @books = Book.all
@@ -27,6 +27,10 @@ class BooksController < ApplicationController
     else
       render json: @book.errors, status: :unprocessable_entity
     end
+  end
+
+  def doidao
+    
   end
 
   def destroy

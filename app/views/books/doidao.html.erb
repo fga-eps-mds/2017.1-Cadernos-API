@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+book.member
+<html>
+<head>
+  <title> olar </title>
+</head>
+<body>
+  <h1><%=@book.title%></h1>
+  <a href="#" target="_blank">
+    <div align = "center"> <img src="https://s3.amazonaws.com/codecademy-content/courses/web-101/web101-image_brownbear.jpg" /></a></div>
+  <p>Colaboradores</p>
+  <ul>
+  <% @book.members.each do |m| %>
+    <li>m.name</li>
+    <%end%>
+  </ul>
+</body>
+</html>
