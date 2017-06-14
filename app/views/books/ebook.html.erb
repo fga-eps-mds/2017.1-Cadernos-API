@@ -10,6 +10,8 @@
   </div>
 <% end %>
 
+<h2>Membros:</h2>
+
 <% @book.members.all.each do |member| %>
     <p> - <%= member.member_name %></p>
 <% end %>
