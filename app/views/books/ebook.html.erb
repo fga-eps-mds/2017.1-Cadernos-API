@@ -1,17 +1,40 @@
-
+<!DOCTYPE html>
 <meta charset='utf-8' />
+
+<style type= "text/css">
+h1 {
+    font-size: 48px;
+    text-align: center;
+}
+#imageBook{
+  position: relative;
+  left:42%;
+  top:35%;
+  margin-left:-110px;
+  margin-top:50px;
+}
+h3{
+  margin-top: 70px;
+  font-size: 24px;
+}
+p{
+  margin-top: 30px;
+  font-size: 24px;
+}
+</style>
+
 <h1><%=@book.title%></h1>
-<h2>Atividades:</h2>
+  <img src="http://lh6.ggpht.com/-jo_JVDPi1xM/T64ym-agftI/AAAAAAAAdnQ/uitLvruhkY0/ca_thumb%25255B2%25255D.png?imgmax=800%"/>
+<h4>Livro Criado por <%=@user.name%></h4>
+<h4>Colaboradores</h4>
+<%@book.members.all.each do |member| %>
+    <p> - <%= member.member_name %></p>
+<% end %>
+<h4>Atividades:</h4>
 
 <% @book.tasks.all.each do |task| %>
   <div>
     <h4><%= task.title %></h4>
     <p> - <%= task.content %></p>
   </div>
-<% end %>
-
-<h2>Membros:</h2>
-
-<% @book.members.all.each do |member| %>
-    <p> - <%= member.member_name %></p>
 <% end %>
