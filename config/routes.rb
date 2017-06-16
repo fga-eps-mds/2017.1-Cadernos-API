@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/books/:id/tasks" => "books#tasks"
   get "/books/:id/inspirations" => "books#inspirations"
 
+  post "/tasks/:id/picture" => "tasks#set_picture"
 
   get "/books/:id/full-detail" => "books#full_detail"
   get "/books/:id/:title.pdf" => "books#createEbook"

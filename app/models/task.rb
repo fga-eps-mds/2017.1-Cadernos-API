@@ -2,25 +2,38 @@ class Task < ApplicationRecord
   belongs_to :book
   belongs_to :user
   belongs_to :category
-  
+
   validates :title, presence: true, length:{in: 5..80}
   validates :content, presence: true
 
-  has_many :documents
-  has_many :images
+  before_save :parse_image
 
-  attr_accessor :document_data
-  attr_accessor :image_data
+  attr_accessor :picture_base
 
-  def save_file(params)
-    params[:document_data].each do |doc|
-      self.documents.create(:file => doc)
-    end
+  has_attached_file :picture,
+    styles: { medium: "500x500>", thumb: "200x200>" }, default_style: "medium", default_url: "/images/:style/missing.jpg"
+    validates_attachment :picture
+    do_not_validate_attachment_file_type :picture
+
+  def picture_original
+    self.picture.url(:original)
   end
 
-  def save_image(params)
-    params[:image_data].each do |image|
-      self.images.create(:picture => image)
-    end
+  def picture_medium
+    self.picture.url(:medium)
   end
+
+  def picture_thumb
+    self.picture.url(:thumb)
+  end
+
+  private
+    def parse_image
+      if picture_base
+        image = Paperclip.io_adapters.for(picture_base)
+        image.original_filename = "file.jpg"
+        self.picture = image
+      end
+    end
+
 end
