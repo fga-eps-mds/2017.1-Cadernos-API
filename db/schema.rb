@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606123824) do
+ActiveRecord::Schema.define(version: 20170616150656) do
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -30,28 +30,6 @@ ActiveRecord::Schema.define(version: 20170606123824) do
     t.string   "description", default: ""
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.integer  "task_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.index ["task_id"], name: "index_documents_on_task_id"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.integer  "task_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.index ["task_id"], name: "index_images_on_task_id"
   end
 
   create_table "inspirations", force: :cascade do |t|
