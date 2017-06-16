@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   skip_before_action :authenticate_request, only: [:show, :index]
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :update, :destroy, :set_picture]
 
   # GET /tasks
   def index
@@ -39,6 +39,16 @@ class TasksController < ApplicationController
     @task.destroy
   end
 
+  def set_picture
+    @task.picture_base = params[:picture_base]
+
+    if @task.save
+      render json: {success: true, task: @task}
+    else
+      render json: {success: false, errors: @task.errors}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -47,6 +57,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:category_id, :title, :content, :book_id, :user_id)
+      params.require(:task).permit(:category_id, :title, :content, :book_id, :user_id, :picture_base)
     end
 end
