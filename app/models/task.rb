@@ -15,6 +15,18 @@ class Task < ApplicationRecord
     validates_attachment :picture
     do_not_validate_attachment_file_type :picture
 
+  def picture_original
+    self.picture.url(:original)
+  end
+
+  def picture_medium
+    self.picture.url(:medium)
+  end
+
+  def picture_thumb
+    self.picture.url(:thumb)
+  end
+
   private
     def parse_image
       if picture_base
