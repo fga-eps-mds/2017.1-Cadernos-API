@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616150656) do
+ActiveRecord::Schema.define(version: 20170616151424) do
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -72,9 +72,13 @@ ActiveRecord::Schema.define(version: 20170616150656) do
     t.text     "content"
     t.integer  "user_id"
     t.integer  "book_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "files_list"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["book_id", "created_at"], name: "index_tasks_on_book_id_and_created_at"
     t.index ["book_id"], name: "index_tasks_on_book_id"
     t.index ["user_id", "created_at"], name: "index_tasks_on_user_id_and_created_at"
