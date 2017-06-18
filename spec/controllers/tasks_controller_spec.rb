@@ -37,6 +37,14 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
+  describe "GET #all" do
+    it "assigns all tasks as @tasks" do
+      expect(task.save).to be(true)
+      get :all, params: {}, session: valid_session
+      expect(assigns(:tasks)).to eq([task])
+    end
+  end
+
   describe "GET #show" do
     it "assigns task as @task" do
       expect(task.save).to be(true)

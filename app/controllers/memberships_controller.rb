@@ -1,11 +1,17 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_request, only: [:all]
 
 
   # GET /memberships
   # GET /memberships.json
   def index
     @memberships = Membership.all
+  end
+
+  def all
+    @memberships = Membership.all.order('id ASC')
+    render :index
   end
 
   # GET /memberships/1

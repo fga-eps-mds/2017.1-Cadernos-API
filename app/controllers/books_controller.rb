@@ -1,9 +1,14 @@
 class BooksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:index, :show, :full_detail, :tasks, :search, :inspirations, :createEbook]
+  skip_before_action :authenticate_request, only: [:index, :all, :show, :full_detail, :tasks, :search, :inspirations, :createEbook]
   before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations, :createEbook]
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+  end
+
+  def all
+    @books = Book.all.order('id ASC')
+    render :index
   end
 
   def search

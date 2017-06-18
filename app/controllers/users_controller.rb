@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [:create]
+  skip_before_action :authenticate_request, only: [:create, :all]
   before_action :set_user, only: [:show, :update, :destroy, :books, :invites, :sent_invites, :memberships]
 
 
   # GET /users
   def index
     @users = User.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('name ASC')
+  end
+
+  def all
+    @users = User.all.order('id ASC')
+    render :index
   end
 
   # GET /users/1
