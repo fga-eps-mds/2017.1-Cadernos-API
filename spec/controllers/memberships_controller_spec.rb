@@ -65,6 +65,14 @@ RSpec.describe MembershipsController, type: :controller do
     end
   end
 
+  describe "GET #all" do
+    it "assigns all memberships as @memberships" do
+      membership = Membership.create! valid_attributes
+      get :all, params: {}, session: valid_session
+      expect(assigns(:memberships)).to eq([membership])
+    end
+  end
+
   describe "GET #show" do
     it "assigns the requested membership as @membership" do
       @token = AuthenticateUser.call(new_member.email, new_member.password)

@@ -56,6 +56,14 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #all" do
+    it "assigns all users as @users" do
+      user = FactoryGirl.create :user
+      get :all, params: {}, session: valid_session
+      expect(assigns(:users)).to eq([user])
+    end
+  end
+
   describe "GET #show" do
     it "assigns the requested user as @user" do
 

@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
-  skip_before_action :authenticate_request, only: [:show, :index]
+  skip_before_action :authenticate_request, only: [:show, :index, :all]
   before_action :set_task, only: [:show, :update, :destroy, :set_picture]
 
   # GET /tasks
   def index
     @tasks = Task.all
+  end
+
+  def all
+    @tasks = Task.all.order('id ASC')
+    render :index
   end
 
   # GET /tasks/1

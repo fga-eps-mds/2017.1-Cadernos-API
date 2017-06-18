@@ -1,10 +1,15 @@
 class CategoriesController < ApplicationController
-  skip_before_action :authenticate_request, only: [:show, :index]
+  skip_before_action :authenticate_request, only: [:show, :index, :all]
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
   def index
     @categories = Category.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('name ASC')
+    render json: @categories
+  end
+
+  def all
+    @categories = Category.all.order('id ASC')
     render json: @categories
   end
 
