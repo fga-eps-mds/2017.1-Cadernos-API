@@ -50,7 +50,7 @@ class Task < ApplicationRecord
     def parse_image
       if picture_base
         image = Paperclip.io_adapters.for(picture_base)
-        image.original_filename = self.id + ".jpg"
+        image.original_filename = self.id.to_s + ".jpg"
         self.picture = image
       end
     end
