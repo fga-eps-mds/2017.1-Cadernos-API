@@ -63,6 +63,7 @@ RSpec.describe BooksController, type: :controller do
 
   describe "GET #search" do
       it "assigns all found books as @books" do
+      pending "works only in postgres, these tests runs into SQLite"
       expect(book.save).to be(true)
 
       get :search, :params => {keyword: 'fir'}
