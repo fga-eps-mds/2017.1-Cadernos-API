@@ -14,11 +14,11 @@ RSpec.describe TasksController, type: :controller do
   }
 
   let(:task) {
-    create :task, book: book, user: user, category: category
+    create :task, book: book, user: book.user, category: category
   }
 
   let(:valid_attributes){
-    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: user.id, category_id: category.id}
+    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: book.user.id, category_id: category.id}
   }
 
   let(:invalid_attributes){
