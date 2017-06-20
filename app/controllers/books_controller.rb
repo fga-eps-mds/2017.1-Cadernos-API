@@ -13,7 +13,7 @@ class BooksController < ApplicationController
 
   def search
     keyword = params[:keyword]
-    @books = Book.where("title LIKE '%#{keyword}%'")
+    @books = Book.where("title ILIKE '%#{keyword}%'")
     render json: @books
   end
 
