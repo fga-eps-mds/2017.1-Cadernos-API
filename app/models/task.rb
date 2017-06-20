@@ -6,7 +6,9 @@ class Task < ApplicationRecord
   validates :title, presence: true, length:{in: 5..80}
   validates :content, presence: true
 
-  before_save :parse_image
+  validate :taskCreationPermission
+
+  before_save :parse_image, :taskCreationPermission
 
   attr_accessor :picture_base
 
@@ -25,6 +27,23 @@ class Task < ApplicationRecord
 
   def picture_thumb
     self.picture.url(:thumb)
+  end
+
+  def taskCreationPermission
+    if self.book_id != nil
+      if Book.find(self.book_id) != nil
+        unless Book.find(self.book_id).user_id == self.user_id
+          @membership = Membership.find_by_book_id(self.book_id)
+          if @membership != nil
+            unless Book.find(self.book_id).members.all.include(Membership.find_by_member_id(self.user_id))
+              self.errors.add(:user, "is not allowed to create a task")
+            end
+          else
+            self.errors.add(:user, "is not allowed to create a task")
+          end
+        end
+      end
+    end
   end
 
   private
