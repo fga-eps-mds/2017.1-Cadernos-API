@@ -3,11 +3,11 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:update, :destroy, :show, :set_cover, :tasks, :full_detail, :members, :inspirations, :createEbook]
 
   def index
-    @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+    @books = Book.includes(:user).paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
   end
 
   def all
-    @books = Book.all.order('id ASC')
+    @books = Book.includes(:user).all.order('id ASC')
     render :index
   end
 
