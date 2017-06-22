@@ -53,6 +53,14 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
+  describe "GET #all" do
+    it "assigns all categories as @categories" do
+      expect(category.save).to be(true)
+      get :all, params: {}, session: valid_session
+      expect(assigns(:categories)).to eq([category])
+    end
+  end
+
   describe "GET #show" do
 
     it "assigns the requested category as @category" do

@@ -14,11 +14,11 @@ RSpec.describe TasksController, type: :controller do
   }
 
   let(:task) {
-    create :task, book: book, user: user, category: category
+    create :task, book: book, user: book.user, category: category
   }
 
   let(:valid_attributes){
-    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: user.id, category_id: category.id}
+    {title: "NewValidTitle", content: "ValidContent", book_id: book.id, user_id: book.user.id, category_id: category.id}
   }
 
   let(:invalid_attributes){
@@ -33,6 +33,14 @@ RSpec.describe TasksController, type: :controller do
       @token = AuthenticateUser.call(task.book.user.email, task.book.user.password)
       request.headers["Authorization"] = @token.result
       get :index, params: {}, session: valid_session
+      expect(assigns(:tasks)).to eq([task])
+    end
+  end
+
+  describe "GET #all" do
+    it "assigns all tasks as @tasks" do
+      expect(task.save).to be(true)
+      get :all, params: {}, session: valid_session
       expect(assigns(:tasks)).to eq([task])
     end
   end

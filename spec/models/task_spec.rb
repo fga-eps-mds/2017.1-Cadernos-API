@@ -76,4 +76,24 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe "task user validations" do
+    it "shouldnt save without a valid user" do
+      @user2 = User.new
+      @user2.name = "Valid Name2"
+      @user2.email = "nice@email2.com"
+      @user2.email_confirmation = "nice@email2.com"
+      @user2.password = "nicepassword2"
+      @user2.password_confirmation = "nicepassword2"
+      @user2.save
+
+      @task.title = "nome de tarefa"
+      @task.content = "qualquer coisa aqui serve"
+      @task.book = @book
+      @task.user = @user2
+      @task.category = @category
+      expect(@task.save).to be(false)
+      expect(@task.errors[:user]).to include("is not allowed to create a task")
+    end
+  end
+
 end

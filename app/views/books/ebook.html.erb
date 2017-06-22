@@ -4,9 +4,9 @@
 <style type= "text/css">
 .cover{
   width: 595px;
-  height: 842px;
+  height: 992px;
   margin: 0 auto;
-  border: 1px solid red;
+  border: 5px solid gray;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,15 +18,39 @@
   width: 100%;
   text-align: center;
 }
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+div.alwaysbreak { page-break-before: always; }
+div.nobreak:before { clear:both; }
+div.nobreak { page-break-inside: avoid; }
+
 .task{
   width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  min-height: 200px;
   position: relative;
+  margin-top: 20px;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 5px;
 }
+
 .task__info{
   position: absolute;
   top: 0;
   right: 0;
+  padding-right: 10px;
 }
+
+.task__title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .imageBook{
   display: block;
   margin: 0 auto;
@@ -38,17 +62,25 @@
 </style>
 <div class="cover">
   <h1 class="coverTitle"><%=  @book.title%></h1>
-  <img class="imageBook" src="<%=@book.cover_original%>" alt="">
+  <img class="imageBook" src="<%= add_host_prefix(@book.cover_original) %>" alt="">
   <div class="info">
     <p><%=@book.user.name%></p>
     <p><%=@book.created_at.strftime('%d/%m/%Y') %></p>
   </div>
 </div>
-  <% @book.tasks.all.each do |task| %>
-<div class="task">
-  <div class="task__info">
-    <p><%=task.user.name %></p>
-    <p><%= task.created_at.strftime('%d/%m/%Y') %></p>
-  </div>
-</div>
-<%end%>
+  <% @book.tasks.order(:created_at).each do |task| %>
+      <div class="task nobreak">
+        <div class="task__info">
+          <p><%=task.user.name %></p>
+          <p><%= task.created_at.strftime('%d/%m/%Y - %H:%M') %></p>
+        </div>
+        <div>
+          <p><%= task.category.name %></p>
+          <p class="task__title"><%= task.title %></p>
+        </div>
+        <div class="task__content">
+          <p><%= task.content %></p>
+        </div>
+        <img src="<%= add_host_prefix(task.picture_medium) %>" alt="">
+      </div>
+  <%end%>

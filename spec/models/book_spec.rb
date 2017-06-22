@@ -55,6 +55,22 @@ RSpec.describe Book, type: :model do
       @book.title = "valid book title"
       expect(@book.save).to be(true)
     end
+
+		it "shouldnt save if title has already been taken" do
+      @book.title = "New Book Name"
+      @book.user = @user
+			@book.save
+
+			@book2 = Book.new
+			@book2.user = @user
+			@book2.title = @book.title
+
+			expect(@book2.save).to be(false)
+			expect(@book2.errors[:title]).to include("has already been taken")
+
+			@book2.title = "Another different title"
+			expect(@book2.save).to be(true)
+    end
   end
 
   describe "book cover" do

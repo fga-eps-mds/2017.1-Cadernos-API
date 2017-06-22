@@ -22,7 +22,14 @@ Rails.application.routes.draw do
   get "/books/:id/tasks" => "books#tasks"
   get "/books/:id/inspirations" => "books#inspirations"
 
+  post "/tasks/:id/picture" => "tasks#set_picture"
 
   get "/books/:id/full-detail" => "books#full_detail"
   get "/books/:id/:title.pdf" => "books#createEbook"
+
+  get "/books-all" => "books#all"
+  get "/users-all" => "users#all"
+  get "/tasks-all" => "tasks#all"
+  get "/categories-all" => "categories#all"
+  get "/memberships-all" => "memberships#all"
 end
