@@ -34,7 +34,7 @@ class InvitesController < ApplicationController
 
     if @invite.save
       ActionMailer::Base.mail(from: "ColaborArt APP <colaborart_api@reborn.com>",
-                              to: "victor_cmoura@hotmail.com",
+                              to: @user.email,
                               subject: "Convite para colaboração em " + @book.title,
                               body: "Olá, " + @user.name + "!\n" + @sender.name + " te convidou para colaborar em " + @book.title + ". Acesse o APP para aceitar!").deliver
 
