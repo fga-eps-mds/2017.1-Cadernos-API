@@ -33,6 +33,11 @@ class InvitesController < ApplicationController
     @invite = Invite.new(@params)
 
     if @invite.save
+      ActionMailer::Base.mail(from: "ColaborArt APP <colaborart_api@reborn.com>",
+                              to: "victor_cmoura@hotmail.com",
+                              subject: "Convite para colaboração em " + @book.title,
+                              body: @sender.name + " te convidou para colaborar em " + @book.title + ". Acesse o APP para aceitar!").deliver
+
       render :show, status: :created, location: @invite
     else
       render json: @invite.errors, status: :unprocessable_entity
