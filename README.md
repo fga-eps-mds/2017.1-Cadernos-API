@@ -1,5 +1,5 @@
 # 2017.1-Cadernos-API
- Repositório oficial da API do projeto de cadernos de arte da Universidade de Brasília. Link para o repositorio central do projeto: https://github.com/fga-gpp-mds/2017.1-Cadernos-APP/.
+ Repositório oficial da API do projeto de cadernos de arte da Universidade de Brasília. Link para o repositório central do projeto: https://github.com/fga-gpp-mds/2017.1-Cadernos-APP/.
 
 ***
 
@@ -12,15 +12,14 @@
 
 ## Instalação
 
-Para rodar a API do aplicativo cadernos localmente basta clonar repositório e execultar
-o seguintes comandos:
+Para inicializar a API do aplicativo Cadernos localmente basta clonar o repositório e executar o seguintes comandos:
 
 ```bash
 vagrant up mdsgpp
 vagrant ssh mdsgpp
 ```
 
-Após a inicialização da maquina virtual, execulte:
+Após a inicialização da maquina virtual, execute:
 
 ```bash
 cd /vagrant
