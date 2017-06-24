@@ -6,11 +6,11 @@ class BooksController < ApplicationController
   helper_method :add_host_prefix
 
   def index
-    @books = Book.paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
+    @books = Book.includes(:user).paginate(:page => params[:page], :per_page => params[:per_page] || 10).order('title ASC')
   end
 
   def all
-    @books = Book.all.order('id ASC')
+    @books = Book.includes(:user).all.order('id ASC')
     render :index
   end
 
