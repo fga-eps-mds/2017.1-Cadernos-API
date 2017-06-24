@@ -32,4 +32,6 @@ Rails.application.routes.draw do
   get "/tasks-all" => "tasks#all"
   get "/categories-all" => "categories#all"
   get "/memberships-all" => "memberships#all"
+
+  post "/users-avatar" => "users#set_avatar"
 end

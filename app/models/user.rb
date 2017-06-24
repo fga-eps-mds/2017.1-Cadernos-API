@@ -14,5 +14,36 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :tasks
 
+  before_save :parse_image
+
+  attr_accessor :avatar_base
+  has_attached_file :avatar,
+                    styles: { medium: "500x500>", thumb: "200x200>" },
+                    default_style: "medium",
+                    default_url: "/images/:style/default-avatar.jpg"
+
+  validates_attachment :avatar
+  do_not_validate_attachment_file_type :avatar
+
+  def avatar_original
+    self.avatar.url(:original)
+  end
+
+  def avatar_medium
+    self.avatar.url(:medium)
+  end
+
+  def avatar_thumb
+    self.avatar.url(:thumb)
+  end
+
+  private
+    def parse_image
+      if avatar_base
+        image = Paperclip.io_adapters.for(avatar_base)
+        image.original_filename = "file.jpg"
+        self.avatar = image
+      end
+    end
 
 end
