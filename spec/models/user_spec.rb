@@ -1,4 +1,5 @@
 require 'rails_helper'
+require Rails.root.join('spec', 'test_helpers', 'encode_image.rb')
 
 RSpec.describe User, type: :model do
 
@@ -128,5 +129,36 @@ RSpec.describe User, type: :model do
       expect(@user.save).to be(true)
     end
 
+  end
+
+  describe "user avatar" do
+    it "gives a missing image as default when there is no cover setted to the book" do
+      expect(@user.avatar.url).to eq("/images/medium/default-avatar.jpg")
+    end
+
+    it "gives the original avatar image" do
+      expect(@user.avatar_original).to eq("/images/original/default-avatar.jpg")
+    end
+
+    it "gives the medium avatar image" do
+      expect(@user.avatar_medium).to eq("/images/medium/default-avatar.jpg")
+    end
+
+    it "gives the thumb avatar image" do
+      expect(@user.avatar_thumb).to eq("/images/thumb/default-avatar.jpg")
+    end
+
+    it "decode and generates medium and thumb sizes of a given base64 encoded image" do
+      expect(@user.save).to be(true)
+
+      base64_image = encode_image_to_base64(test_image, "jpg")
+
+      expect(@user.avatar.url).to eq("/images/medium/default-avatar.jpg")
+      @user.email_confirmation = @user.email
+      @user.avatar_base = base64_image
+
+      expect(@user.save).to be(true)
+      expect(@user.avatar.url).not_to eq("/images/medium/default-avatar.jpg")
+    end
   end
 end

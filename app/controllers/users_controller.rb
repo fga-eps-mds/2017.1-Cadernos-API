@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create, :all]
-  before_action :set_user, only: [:show, :update, :destroy, :books, :invites, :sent_invites, :memberships]
+  before_action :set_user, only: [:show, :update, :destroy, :books, :invites, :sent_invites, :memberships, :set_avatar]
 
 
   # GET /users
@@ -61,6 +61,17 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to action: 'index', status:200
+  end
+
+  def set_avatar
+    @user.avatar_base = params[:avatar_base]
+    @user.email_confirmation = params[:email]
+
+    if @user.save
+      render :show
+    else
+      render json: {success: false, errors: @user.errors}
+    end
   end
 
   private
