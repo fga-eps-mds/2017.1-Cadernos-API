@@ -6,17 +6,25 @@
   width: 595px;
   height: 992px;
   margin: 0 auto;
-  border: 5px solid gray;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background: linear-gradient(to bottom, rgba(211, 211, 211, 0.4), #FFFFFF);
+
 }
 .cover h1{
-  font-size: 40px;
+  font-size: 45px;
 }
 .coverTitle{
   width: 100%;
   text-align: center;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-weight: lighter;
+  font-style: normal;
 }
 .page {
   display: flex;
@@ -34,29 +42,44 @@ div.nobreak { page-break-inside: avoid; }
   min-height: 200px;
   position: relative;
   margin-top: 20px;
-  border: 1px solid gray;
+  border: 1px solid black;
   padding: 10px;
   border-radius: 5px;
+  font-size: 15px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  background: linear-gradient(to right, rgba(211, 211, 211, 0.4), #FFFFFF);
 }
 
 .task__info{
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 12px;
   position: absolute;
   top: 0;
   right: 0;
-  padding-right: 10px;
+  padding-right: 20px;
 }
 
 .task__title {
-  font-size: 18px;
+  font-size: 20px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-weight: bold;
+  border-bottom: 1px solid black;
 }
 
 .imageBook{
   display: block;
   margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 .info p {
   text-align: center;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+.taskImage {
+  border: 1px;
+  border-style: solid;
+  border-color: #838383;
 }
 
 </style>
@@ -75,12 +98,13 @@ div.nobreak { page-break-inside: avoid; }
           <p><%= task.created_at.strftime('%d/%m/%Y - %H:%M') %></p>
         </div>
         <div>
+          <br>
           <p><%= task.category.name %></p>
           <p class="task__title"><%= task.title %></p>
         </div>
         <div class="task__content">
           <p><%= task.content %></p>
         </div>
-        <img src="<%= add_host_prefix(task.picture_medium) %>" alt="">
+        <img class="taskImage" src="<%= add_host_prefix(task.picture_medium) %>" alt="">
       </div>
   <%end%>

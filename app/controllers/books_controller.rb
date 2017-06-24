@@ -76,8 +76,8 @@ class BooksController < ApplicationController
     html_path = Rails.root.join('app','views','books','ebook.html.erb')
     html_string = render_to_string file: html_path
     pdf = WickedPdf.new.pdf_from_string(html_string)
-    #render html: html_string.html_safe
-     send_data pdf
+    render html: html_string.html_safe
+    #send_data pdf
   end
 
   private
