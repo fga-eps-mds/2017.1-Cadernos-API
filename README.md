@@ -13,6 +13,8 @@
 
 Visualização gráfica das conexões da API, disponível em: https://colaborart.github.io
 
+> PS: O Heroku pode estar dormindo, então caso não apareça nada, aguarde uns 20 segundos e atualize a página
+
 ***
 
 ## Rotas
