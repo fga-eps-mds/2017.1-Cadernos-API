@@ -9,7 +9,48 @@
 
 
 ***
+## API Graph
 
+Visualização gráfica das conexões da API, disponível em: https://colaborart.github.io
+
+***
+
+## Rotas
+
+|     Verbo    |           Url          | Descrição                                                                                  | Parâmetros aceitos                                                                                                                 |
+|:------------:|:----------------------:|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| POST         | /authenticate          | Autentifica o usuário.                                                                     | email: string password: string                                                                                                     |
+| GET          | /book/search/:keyword  | Busca por um caderno                                                                       | keyword: string                                                                                                                    |
+| GET          | /books                 | Disponibiliza os cadernos em ordenados pelo seu título e com paginação                     | page: number per_page: number, default: 10                                                                                         |
+| POST         | /books                 | Cria um novo caderno.                                                                      | book => { title: string, user_id: number }                                                                                         |
+| GET          | /books/:id             | Disponibiliza os dados de um único caderno                                                 | id: number                                                                                                                         |
+| PUT or PATCH | /books/:id             | Atualiza os dados de um caderno                                                            | book => { title: string, user_id: number }                                                                                         |
+| DELETE       | /books/:id             | Deleta um caderno                                                                          | id: number                                                                                                                         |
+| GET          | /books-all             | Disponibiliza todos os cadernos, sem paginação e ordenados pelo id                         |                                                                                                                                    |
+| GET          | /books/:id/:title.pdf  | Gera um PDF do caderno. PS: O títutlo pode ser qualquer coisa, ele não é usado pra nada... | id: number title: string                                                                                                           |
+| POST         | /books/:id/cover       | Seta uma capa para um dado caderno. A imagem é passada como parâmetro no formato base64.   | id: number cover_base: image string base64                                                                                         |
+| GET          | /books/:id/members     | Disponibiliza os colaboradores de um caderno                                               | id: number                                                                                                                         |
+| GET          | /books/:id/tasks       | Disponibiliza as tarefas de um caderno                                                     | id: number                                                                                                                         |
+| GET          | /categories            | Disponibiliza as categorias                                                                |                                                                                                                                    |
+| GET          | /invites               | Disponibiliza os convites de colaboração                                                   |                                                                                                                                    |
+| POST         | /invites               | Cria um convite de colaboração. Um email é enviado para o convidado                        | invite => {email: string, send_id: number, book_id: number}                                                                        |
+| GET          | /memberships           | Disponibiliza as colaborações                                                              |                                                                                                                                    |
+| POST         | /memberships           | Cria uma colaboração                                                                       | membership => {email: string, book_id: number}                                                                                     |
+| GET          | /users                 | Disponibiliza os usuário                                                                   |                                                                                                                                    |
+| POST         | /users                 | Cria um novo usuário                                                                       | user => {name: string, email: string, email_confirmation: string, password: string, password_confirmation: string}                 |
+| GET          | /users/:id             | Disponibiliza os dados de um usuário                                                       | id: number                                                                                                                         |
+| PUT or PATCH | /users/:id             | Atualiza os dados de um usuário                                                            | user => {name: string, email: string, email_confirmation: string, password: string, password_confirmation: string}                 |
+| GET          | /users/:id/books       | Disponibiliza os cadernos que o usuário é dono                                             | id: number                                                                                                                         |
+| GET          | /users/:id/invites     | Disponibiliza os convites de colaboração para o usuário                                    | id: number                                                                                                                         |
+| GET          | /users/:id/memberships | Disponibiliza as colaborações do usuário                                                   | id: number                                                                                                                         |
+| GET          | /tasks                 | Disponibiliza as tarefas                                                                   |                                                                                                                                    |
+| POST         | /tasks                 | Cria uma nova tarefa                                                                       | task => {category_id: number, title: string, content: string, book_id: number, user_id: number, picture_base: string image base64} |
+| GET          | /tasks/:id             | Disponibiliza os dados uma tarefa                                                          | id: number                                                                                                                         |
+| PUT or PATCH | /tasks/:id             | Atualiza os dados de uma tarefa                                                            | id: number                                                                                                                         |
+| DELETE       | /tasks/:id             | Deleta uma tarefa                                                             | id: number |
+| POST         | /tasks/:id/picture     | Seta uma imagem para a terefa                                                 | id: number, picture_base: string image base64 |
+
+***
 ## Instalação
 
 Para inicializar a API do aplicativo Cadernos localmente basta clonar o repositório e executar o seguintes comandos:
